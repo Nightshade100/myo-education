@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Red Flags for Paediatric Sleep Disordered Breathing — MYO Education</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pink-bg:#F2F7FB;
+  --yellow-bg:#DCE7EF;
+  --ink:#1A1F23;
+  --coral:#296182;
+  --coral-dark:#1B4459;
+  --primary-light:#3D7FA3;
+  --grey-text:#42586A;
+  --white:#FFFFFF;
+  --border:#D2E3EC;
+}
+*{box-sizing:border-box;}
+body{
+  margin:0;
+  font-family:'Open Sans', Arial, sans-serif;
+  background:var(--pink-bg);
+  color:var(--ink);
+}
+.site-header{
+  width:100%;
+  height:44px;
+  background:#d1eaf0;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 32px 0 16px;
+  position:sticky;
+  top:0;
+  z-index:100;
+}
+.site-nav{
+  display:flex;
+  gap:24px;
+}
+.site-nav a{
+  font-family:'Lora', serif;
+  font-size:13px;
+  font-weight:700;
+  letter-spacing:.03em;
+  color:var(--ink);
+  text-decoration:none;
+}
+.site-nav a:hover{ color:var(--coral); }
+.site-nav a.active{ color:var(--coral); }
+.site-header .title{
+  font-family:'Lora', serif;
+  font-size:18px;
+  letter-spacing:1.5px;
+  color:var(--ink);
+  text-decoration:none;
+}
+.top-banner{
+  background:var(--yellow-bg);
+  text-align:center;
+  padding:48px 24px 40px;
+}
+.badge-pill{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  background:var(--white);
+  border:1px solid var(--border);
+  border-radius:999px;
+  padding:7px 16px;
+  font-size:12px;
+  font-weight:700;
+  color:var(--coral);
+  margin-bottom:18px;
+}
+.top-banner h1{
+  font-family:'Lora', serif;
+  font-size:clamp(26px,4.5vw,38px);
+  font-weight:800;
+  line-height:1.2;
+  max-width:680px;
+  margin:0 auto 16px;
+}
+.top-banner p{
+  color:var(--grey-text);
+  font-size:15px;
+  line-height:1.6;
+  max-width:620px;
+  margin:0 auto;
+}
+.wrap{
+  max-width:760px;
+  margin:0 auto;
+  padding:40px 24px 80px;
+}
+.warning-box{
+  background:#FFF8E1;
+  border:1px solid #F0D98C;
+  border-radius:16px;
+  padding:18px 22px;
+  font-size:14px;
+  line-height:1.6;
+  color:#7A5C00;
+  margin-bottom:24px;
+}
+.warning-box b{ color:#5C4400; }
+.card{
+  background:var(--white);
+  border-radius:20px;
+  padding:32px clamp(20px,4vw,36px);
+  box-shadow:0 4px 20px rgba(0,0,0,.05);
+  margin-bottom:24px;
+}
+.card h2{
+  font-family:'Lora', serif;
+  font-size:20px;
+  font-weight:800;
+  margin:0 0 20px;
+}
+.steps{
+  list-style:none;
+  margin:0;
+  padding:0;
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+}
+.steps li{
+  display:flex;
+  gap:12px;
+  font-size:14px;
+  line-height:1.6;
+  color:var(--grey-text);
+}
+.steps .num{
+  flex-shrink:0;
+  color:var(--coral);
+  font-weight:800;
+}
+.risk-subtitle{
+  font-size:13px;
+  color:var(--grey-text);
+  margin:-12px 0 20px;
+}
+.risk-band{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  border-radius:14px;
+  padding:16px 20px;
+  margin-bottom:10px;
+}
+.risk-band .points{ font-weight:800; font-size:14px; }
+.risk-band .desc{ font-size:12px; margin-top:2px; }
+.risk-band .label{ font-weight:800; font-size:13px; }
+.risk-low{ background:#DCF3E2; color:#1E7A3C; }
+.risk-mild{ background:#CDEFD9; color:#1E7A3C; }
+.risk-moderate{ background:#FBEFC9; color:#8A6300; }
+.risk-high{ background:#FADADA; color:#B02E2E; }
+.risk-note{
+  font-style:italic;
+  font-size:12px;
+  color:var(--grey-text);
+  margin:14px 0 0;
+  line-height:1.5;
+}
+.start-btn{
+  display:block;
+  text-align:center;
+  background:var(--coral);
+  color:var(--white);
+  font-weight:700;
+  font-size:16px;
+  padding:18px;
+  border-radius:999px;
+  text-decoration:none;
+}
+.start-btn:hover{ background:var(--coral-dark); }
+</style>
+</head>
+<body>
+
+<div class="site-header">
+  <a class="title" href="index.html">MYO EDUCATION</a>
+  <nav class="site-nav">
+    <a href="index.html">HOME</a>
+    <a class="active" href="screening.html">SCREENING</a>
+  </nav>
+</div>
+
+<div class="top-banner">
+  <span class="badge-pill"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#296182" stroke-width="2" style="vertical-align:middle;margin-right:4px"><path d="M6 4v5a4 4 0 0 0 8 0V4"/><path d="M10 15v2a5 5 0 0 0 10 0v-2"/><circle cx="20" cy="11" r="1.5"/></svg> Orofacial Screener — O.A.S</span>
+  <h1>Red Flags for Paediatric Sleep Disordered Breathing</h1>
+  <p>A weighted, evidence-informed screening tool to identify risk indicators for paediatric sleep disordered breathing (pSDB). This tool is a clinical screener — not a diagnosis.</p>
+</div>
+
+<div class="wrap">
+
+  <div class="warning-box">
+    <b>⚠ Important:</b> This is a screening tool only. It does not diagnose any condition. A full diagnosis can only be made after a clinical examination. Designed for children aged 4–17.
+  </div>
+
+  <div class="card">
+    <h2>How this screener works</h2>
+    <ol class="steps">
+      <li><span class="num">1.</span><span>Answer Yes or No to each question across 6 sections.</span></li>
+      <li><span class="num">2.</span><span>Each "Yes" answer adds a weighted score indicating risk for paediatric sleep disordered breathing.</span></li>
+      <li><span class="num">3.</span><span>Your total weighted score determines the risk level (0–14 low, 15–29 mild, 30–49 moderate, 50+ high).</span></li>
+      <li><span class="num">4.</span><span>Your personalised report will be sent to our team, who will contact you with guidance.</span></li>
+    </ol>
+  </div>
+
+  <div class="card">
+    <h2>Risk Grading Scale</h2>
+    <p class="risk-subtitle">Based on a weighted, evidence-informed paediatric sleep-disordered breathing scoring system</p>
+
+    <div class="risk-band risk-low">
+      <div><div class="points">0 – 14 points</div><div class="desc">Monitor breathing and development</div></div>
+      <div class="label">Low Risk</div>
+    </div>
+    <div class="risk-band risk-mild">
+      <div><div class="points">15 – 29 points</div><div class="desc">Preventative assessment beneficial</div></div>
+      <div class="label">Mild Risk</div>
+    </div>
+    <div class="risk-band risk-moderate">
+      <div><div class="points">30 – 49 points</div><div class="desc">Comprehensive assessment recommended</div></div>
+      <div class="label">Moderate Risk</div>
+    </div>
+    <div class="risk-band risk-high">
+      <div><div class="points">50+ points</div><div class="desc">Prompt professional assessment recommended</div></div>
+      <div class="label">High Risk</div>
+    </div>
+
+    <p class="risk-note">Certain combinations of high-risk indicators (e.g. witnessed apnoea + snoring + mouth breathing) will automatically elevate the risk level regardless of the total score.</p>
+  </div>
+
+  <a class="start-btn" href="screener.html">Start Screening →</a>
+
+</div>
+
+</body>
+</html>
