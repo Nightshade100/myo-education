@@ -444,6 +444,10 @@ body{
 .sym-head{ display:flex; align-items:center; gap:10px; font-size:13.5px; font-weight:700; margin-bottom:6px; }
 .sym-list{ margin:0; padding:0 0 0 48px; }
 .sym-list li{ font-size:14px; color:var(--grey-text); line-height:1.6; }
+.skip-row{ margin-top:18px; padding-top:16px; border-top:1px solid var(--border); text-align:center; }
+.skip-btn{ background:none; border:none; padding:6px 4px; font:inherit; font-size:14px; font-weight:700; color:var(--coral); text-decoration:underline; cursor:pointer; }
+.skip-note{ font-size:12.5px; color:var(--grey-text); margin:4px 0 0; }
+.email-cta{ display:flex; width:100%; justify-content:center; margin-top:4px; border:none; font-family:inherit; }
 .sym-empty{ font-size:14px; color:var(--grey-text); margin:0; }
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
@@ -722,14 +726,28 @@ function checkEmail(raw){
   return { ok:true, email };
 }
 
-function renderContactForm(){
+// what the parent has typed so far, kept if they skip and come back
+const formDraft = { parentName:'', childName:'', childAge:'', email:'', concern:'', consent:false };
+function saveDraft(){
+  const v = id => (document.getElementById(id) || {}).value || '';
+  Object.assign(formDraft, {
+    parentName: v('f-parentName'), childName: v('f-childName'), childAge: v('f-childAge'),
+    email: v('f-email'), concern: v('f-concern'),
+    consent: !!(document.getElementById('f-consent') || {}).checked
+  });
+}
+
+// fromResults = true when the parent skipped, saw their results, then chose "Email this report"
+function renderContactForm(fromResults = false){
   app.innerHTML = `
     <div class="contact-card">
       <div class="contact-icon">
         <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#296182" stroke-width="2"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 3h6v2H9z"/><path d="M8 10h8M8 14h8M8 18h5"/></svg>
       </div>
-      <h2>Almost there</h2>
-      <p class="sub">Your answers have been recorded. Enter your details to see a summary of the signs you noticed and receive a copy by email.</p>
+      <h2>${fromResults ? 'Email this report' : 'Almost there'}</h2>
+      <p class="sub">${fromResults
+        ? 'Enter your details and we\'ll email a copy of your summary so you can take it to your appointment.'
+        : 'Your answers have been recorded. Enter your details to see a summary of the signs you noticed and receive a copy by email.'}</p>
 
       <div class="field-grid">
         <div class="field">
@@ -766,9 +784,30 @@ function renderContactForm(){
 
       <div id="formError"></div>
 
-      <button class="nav-next" id="submitBtn">Get My Results &amp; Report →</button>
+      <button class="nav-next" id="submitBtn">${fromResults ? 'Email My Report →' : 'Get My Results &amp; Report →'}</button>
+
+      <div class="skip-row">
+        ${fromResults
+          ? `<button type="button" class="skip-btn" id="skipBtn">← Back to my results</button>`
+          : `<button type="button" class="skip-btn" id="skipBtn">Skip for now — just show my results</button>
+             <p class="skip-note">Nothing will be emailed. You can still email the report afterwards.</p>`}
+      </div>
     </div>
   `;
+
+  // refill anything typed earlier
+  document.getElementById('f-parentName').value = formDraft.parentName;
+  document.getElementById('f-childName').value = formDraft.childName;
+  document.getElementById('f-childAge').value = formDraft.childAge;
+  document.getElementById('f-email').value = formDraft.email;
+  document.getElementById('f-concern').value = formDraft.concern;
+  document.getElementById('f-consent').checked = formDraft.consent;
+
+  document.getElementById('skipBtn').addEventListener('click', () => {
+    saveDraft();
+    renderResults('skipped');
+    window.scrollTo({top:0, behavior:'smooth'});
+  });
 
   const parentInput = document.getElementById('f-parentName');
   const childInput  = document.getElementById('f-childName');
@@ -839,6 +878,7 @@ function renderContactForm(){
     }
 
     Object.assign(contactInfo, { parentName, childName, childAge, email: emailCheck.email, concern });
+    saveDraft();
 
     const submitBtn = document.getElementById('submitBtn');
     submitBtn.disabled = true;
@@ -848,7 +888,7 @@ function renderContactForm(){
       .then(() => { lastEmailStatus = 'success'; })
       .catch(() => { lastEmailStatus = 'error'; })
       .finally(() => {
-        renderResults();
+        renderResults('emailed');
         window.scrollTo({top:0, behavior:'smooth'});
       });
   });
@@ -913,10 +953,13 @@ function sendReportEmail(){
   return emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams);
 }
 
-function renderResults(){
+// mode: 'emailed' (details given, email attempted) or 'skipped' (no details, nothing sent)
+function renderResults(mode = 'emailed'){
+  const skipped = mode === 'skipped';
   const r = computeResults();
   const email = esc(contactInfo.email || 'your email');
-  const who = contactInfo.childName ? esc(contactInfo.childName) + "'s" : "Your child's";
+  const name = skipped ? formatName(formDraft.childName) : contactInfo.childName;
+  const who = name ? esc(name) + "'s" : "Your child's";
 
   const symptomsHtml = r.total ? r.bySection.map(sec => `
       <div class="sym-section">
@@ -951,6 +994,22 @@ function renderResults(){
       ${symptomsHtml}
     </div>
 
+    ${skipped ? `
+    <div class="card-block">
+      <h3>Want a copy for your appointment?</h3>
+      <p class="next-desc">Nothing has been emailed yet. If you'd like this summary sent to you, so you can show it to your GP or health practitioner, add your details and we'll email it.</p>
+      <button class="nav-next email-cta" id="emailReportBtn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" style="margin-right:8px"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+        Email this report
+      </button>
+      <div class="next-buttons" style="margin-top:12px;">
+        <a class="next-btn" href="index.html">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#296182" stroke-width="2"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg>
+          Learn about the signs
+        </a>
+      </div>
+    </div>
+    ` : `
     <div class="card-block">
       <div class="report-row">
         <div class="report-left">
@@ -984,6 +1043,7 @@ function renderResults(){
         </a>
       </div>
     </div>
+    `}
 
     <div style="text-align:center;">
       <a class="restart-link" id="restartLink" href="#" role="button">Start over</a>
@@ -999,7 +1059,7 @@ function renderResults(){
       .then(() => {
         lastEmailStatus = 'success';
         label.textContent = 'Sent!';
-        setTimeout(() => renderResults(), 900);
+        setTimeout(() => renderResults('emailed'), 900);
       })
       .catch(() => {
         lastEmailStatus = 'error';
@@ -1007,9 +1067,17 @@ function renderResults(){
       });
   });
 
+  const emailReportBtn = document.getElementById('emailReportBtn');
+  if (emailReportBtn) emailReportBtn.addEventListener('click', () => {
+    renderContactForm(true);
+    window.scrollTo({top:0, behavior:'smooth'});
+  });
+
   document.getElementById('restartLink').addEventListener('click', (e) => {
     e.preventDefault();
     currentSection = 0;
+    lastEmailStatus = null;
+    Object.keys(formDraft).forEach(k => formDraft[k] = (k === 'consent' ? false : ''));
     Object.keys(answers).forEach(k => delete answers[k]);
     Object.keys(contactInfo).forEach(k => delete contactInfo[k]);
     renderSection();
