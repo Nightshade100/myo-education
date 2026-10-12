@@ -5,472 +5,139 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Sleep Disordered Breathing Symptom Checker — MYO Education</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Newsreader:opsz,wght@6..72,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css">
 <style>
-:root{
-  --pink-bg:#F2F7FB;
-  --yellow-bg:#DCE7EF;
-  --ink:#1A1F23;
-  --coral:#296182;
-  --coral-dark:#1B4459;
-  --grey-text:#42586A;
-  --white:#FFFFFF;
-  --border:#D2E3EC;
-}
-*{box-sizing:border-box;}
-body{
-  margin:0;
-  font-family:'Open Sans', Arial, sans-serif;
-  background:var(--pink-bg);
-  color:var(--ink);
-}
-.site-header{
-  width:100%;
-  height:44px;
-  background:#d1eaf0;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 32px 0 16px;
-  position:sticky;
-  top:0;
-  z-index:100;
-}
-.site-nav{
-  display:flex;
-  gap:24px;
-}
-@media (max-width:640px){
-  .site-header{ height:auto; min-height:44px; padding:8px 16px; flex-wrap:wrap; gap:4px 16px; }
-  .site-header .title{ font-size:16px; letter-spacing:1px; }
-  .site-nav{ gap:14px; flex-wrap:wrap; }
-  .site-nav a{ font-size:11.5px; }
-}
+.wrap{max-width:680px;margin:0 auto;padding:40px 20px 88px}
+.page-kicker{margin:0 0 20px}
 
-.site-nav a{
-  font-family:'Lora', serif;
-  font-size:13px;
-  font-weight:700;
-  letter-spacing:.03em;
-  color:var(--ink);
-  text-decoration:none;
-}
-.site-nav a:hover{ color:var(--coral); }
-.site-nav a.active{ color:var(--coral); }
-.site-header .title{
-  font-family:'Lora', serif;
-  font-size:18px;
-  letter-spacing:1.5px;
-  color:var(--ink);
-  text-decoration:none;
-}
-.top-banner{
-  background:var(--yellow-bg);
-  text-align:center;
-  padding:40px 24px 32px;
-}
-.badge-pill{
-  display:inline-flex;
-  align-items:center;
-  gap:6px;
-  background:var(--white);
-  border:1px solid var(--border);
-  border-radius:999px;
-  padding:7px 16px;
-  font-size:12px;
-  font-weight:700;
-  color:var(--coral);
-  margin-bottom:16px;
-}
-.top-banner h1{
-  font-family:'Lora', serif;
-  font-size:clamp(22px,4vw,32px);
-  font-weight:800;
-  line-height:1.2;
-  max-width:680px;
-  margin:0 auto 12px;
-}
-.top-banner p{
-  color:var(--grey-text);
-  font-size:14px;
-  line-height:1.6;
-  max-width:600px;
-  margin:0 auto;
-}
-.wrap{
-  max-width:640px;
-  margin:0 auto;
-  padding:32px 20px 80px;
-}
-
-/* section header card */
-.section-head{
-  display:flex;
-  gap:16px;
-  align-items:flex-start;
-  background:var(--yellow-bg);
-  border-radius:20px;
-  padding:24px;
-  margin-bottom:24px;
-}
-.section-icon{
-  flex-shrink:0;
-  width:44px; height:44px;
-  border-radius:50%;
-  background:var(--white);
-  display:flex; align-items:center; justify-content:center;
-}
-.section-meta{ font-size:12px; font-weight:700; letter-spacing:.04em; color:var(--coral); margin-bottom:2px; }
-.section-head h2{ font-family:'Lora', serif; font-size:20px; font-weight:800; margin:0 0 6px; }
-.section-head .sub{ font-size:13px; color:var(--grey-text); margin:0; }
-
-/* progress bar */
-.progress-track{
-  height:6px;
-  background:var(--border);
-  border-radius:999px;
-  margin-bottom:20px;
-  overflow:hidden;
-}
-.progress-fill{
-  height:100%;
-  background:var(--coral);
-  border-radius:999px;
-  transition:width .25s ease;
-}
+/* progress */
+.progress{display:flex;gap:4px;margin-bottom:10px}
+.progress span{flex:1;height:4px;border-radius:2px;background:var(--line);overflow:hidden;position:relative}
+.progress span i{position:absolute;inset:0;background:var(--accent);transform-origin:left;transition:transform .25s ease}
+.section-meta{margin:0 0 6px;font-size:14px;color:var(--muted)}
+.section-head h1{margin:0 0 6px;font-family:var(--serif);font-weight:500;font-size:clamp(28px,4vw,34px);line-height:1.15;letter-spacing:-.01em}
+.section-head .sub{margin:0 0 8px;font-size:15px;color:var(--muted)}
 
 /* questions */
-.question{
-  background:var(--white);
-  border:1.5px solid var(--border);
-  border-radius:16px;
-  padding:18px 20px;
-  margin-bottom:14px;
-}
-.question p{
-  margin:0 0 14px;
-  font-size:14.5px;
-  font-weight:600;
-  line-height:1.5;
-}
-.yn-row{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
-.yn-btn{
-  padding:13px;
-  border-radius:12px;
-  border:1.5px solid var(--border);
-  background:var(--white);
-  font-weight:700;
-  font-size:14px;
-  cursor:pointer;
-  color:var(--ink);
-  transition:background .15s, border-color .15s, color .15s;
-}
-.yn-btn:hover{ border-color:var(--coral); }
-.yn-btn.selected{
-  border-color:var(--coral);
-  color:var(--white);
-}
-.yn-btn.selected.negative{
-  background:#D64545;
-  border-color:#D64545;
-}
-.yn-btn.selected.positive{
-  background:#2E9E4F;
-  border-color:#2E9E4F;
-}
+.question{border:0;margin:0;padding:20px 0;border-bottom:1px solid var(--line);min-width:0}
+.question legend{float:left;width:100%;padding:0;margin:0 0 12px;font-size:16px;line-height:1.5;font-weight:500}
+.yn-row{clear:both;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.yn-btn{min-height:48px;border-radius:6px;border:1px solid var(--control);background:var(--surface);font-weight:600;font-size:16px;cursor:pointer;color:var(--ink);transition:background-color .15s ease,border-color .15s ease,color .15s ease}
+.yn-btn:hover{border-color:var(--ink)}
+.yn-btn[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
 
-/* nav buttons */
-.nav-row{
-  display:flex;
-  gap:10px;
-  margin-top:24px;
-}
-.nav-back{
-  background:var(--white);
-  border:1.5px solid var(--border);
-  border-radius:999px;
-  padding:14px 22px;
-  font-weight:700;
-  font-size:14px;
-  cursor:pointer;
-  color:var(--ink);
-}
-.nav-next{
-  flex:1;
-  background:var(--coral);
-  color:var(--white);
-  border:none;
-  border-radius:999px;
-  padding:14px 22px;
-  font-weight:700;
-  font-size:14px;
-  cursor:pointer;
-  transition:background .15s;
-}
-.nav-next:disabled{
-  background:#AEC9D8;
-  cursor:not-allowed;
-}
-.nav-next:not(:disabled):hover{ background:var(--coral-dark); }
+/* nav */
+.nav-row{display:flex;gap:10px;margin-top:28px}
+.nav-back{display:inline-flex;align-items:center;gap:6px;min-height:52px;padding:0 18px;background:var(--surface);border:1px solid var(--control);border-radius:6px;font-weight:600;font-size:16px;cursor:pointer;color:var(--ink);transition:border-color .15s ease}
+.nav-back:hover{border-color:var(--ink)}
+.nav-next{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 20px;background:var(--accent);color:#fff;border:0;border-radius:6px;font-weight:600;font-size:16px;cursor:pointer;font-family:inherit;transition:background-color .15s ease}
+.nav-next:not(:disabled):hover{background:var(--accent-dark)}
+.nav-next:disabled{background:#B9C9BF;cursor:not-allowed}
+.nav-hint{margin:10px 0 0;font-size:14px;color:var(--muted);text-align:center}
+
+/* contact form */
+.contact-card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:32px clamp(20px,4vw,40px)}
+.contact-card h1{margin:0 0 8px;font-family:var(--serif);font-weight:500;font-size:30px;line-height:1.15}
+.contact-card .sub{margin:0 0 28px;font-size:16px;line-height:1.6;color:var(--body)}
+.contact-icon{display:none}
+.field-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px 16px;margin-bottom:18px}
+@media (max-width:520px){ .field-grid{grid-template-columns:1fr} }
+.field label,.concern-label{display:block;font-size:14px;font-weight:600;margin-bottom:6px}
+.field label .req{color:var(--error)}
+.field input,.concern-field textarea{width:100%;min-height:48px;border:1px solid var(--control);border-radius:6px;padding:12px 14px;font-size:16px;font-family:inherit;color:var(--ink);background:var(--surface);transition:border-color .15s ease,box-shadow .15s ease}
+.field input:focus,.concern-field textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(61,107,87,.18)}
+.field input.invalid{border-color:var(--error)}
+#emailHint{min-height:24px}
+.field-hint{font-size:13.5px;line-height:1.5;margin:6px 0 0;color:#7A5A00}
+.field-hint.error{color:var(--error)}
+.hint-btn{background:none;border:0;padding:0;font:inherit;font-weight:600;color:var(--accent);text-decoration:underline;cursor:pointer}
+.concern-field{margin-bottom:18px}
+.concern-label{display:flex;align-items:center}
+.concern-label svg{display:none}
+.optional-tag{font-weight:400;color:var(--muted);margin-left:4px}
+.concern-field textarea{min-height:96px;resize:vertical}
+.concern-field textarea::placeholder,.field input::placeholder{color:#8C958F}
+.consent-row{display:flex;align-items:flex-start;gap:12px;background:var(--bg);border:1px solid var(--line-soft);border-radius:6px;padding:14px 16px;font-size:14.5px;color:var(--body);line-height:1.55;margin-bottom:20px}
+.consent-row input{width:18px;height:18px;margin:2px 0 0;flex:none;accent-color:var(--accent)}
+.privacy-note{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:14px 16px 12px;margin:4px 0 14px;font-size:14.5px;line-height:1.55;color:var(--body)}
+.privacy-note .privacy-title{margin:0 0 6px;font-weight:600;color:var(--ink)}
+.privacy-note ul{margin:0 0 8px;padding-left:18px}
+.privacy-note li{margin-bottom:4px}
+.privacy-note .privacy-more{margin:0}
+.consent-row + .consent-row{margin-top:-10px}
+.recaptcha-box:not(:empty){margin:0 0 18px}
+.form-error{color:var(--error);font-size:14px;font-weight:600;margin:-6px 0 16px}
+.skip-row{margin-top:20px;padding-top:16px;border-top:1px solid var(--line);text-align:center}
+.skip-btn{background:none;border:0;padding:6px 4px;min-height:44px;font:inherit;font-size:15px;font-weight:600;color:var(--accent);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.skip-note{font-size:13.5px;color:var(--muted);margin:2px 0 0}
 
 /* results */
-.results-note{
-  font-size:13.5px;
-  color:var(--grey-text);
-  line-height:1.6;
-  max-width:440px;
-  margin:0 auto;
-}
-.restart-link{
-  display:inline-block;
-  margin-top:8px;
-  font-size:13px;
-  color:var(--coral);
-  font-weight:700;
-  cursor:pointer;
-  text-decoration:underline;
-}
+.results-head h1{margin:0 0 10px;font-family:var(--serif);font-weight:500;font-size:clamp(30px,4.5vw,38px);line-height:1.12;letter-spacing:-.01em}
+.results-head .summary-sub{margin:0 0 20px;font-size:16px;color:var(--body)}
+.rec-box{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:18px 20px;margin-bottom:12px}
+.rec-box .kicker{margin-bottom:6px}
+.rec-box p.rec-text{margin:0;font-size:16px;line-height:1.6;color:var(--ink)}
+.results-note{font-size:14px;color:var(--muted);line-height:1.6;margin:0 0 28px}
+.sym-sec{margin-bottom:18px}
+.sym-sec-title{margin:0 0 6px;font-size:14px;font-weight:600;color:var(--muted)}
+.sym-list{list-style:none;margin:0;padding:0;background:var(--surface);border:1px solid var(--line);border-radius:8px}
+.sym-list li{padding:14px 16px;border-top:1px solid var(--line-soft);font-size:16px;font-weight:500;line-height:1.45}
+.sym-list li:first-child{border-top:0}
+.sym-empty{font-size:16px;color:var(--body);margin:0}
+.card-block{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:24px clamp(20px,4vw,28px);margin-top:16px}
+.card-block h3{margin:0 0 8px;font-family:var(--serif);font-weight:500;font-size:22px}
+.next-desc{font-size:15px;color:var(--body);line-height:1.65;margin:0 0 18px}
+.next-desc b{color:var(--ink)}
+.next-buttons{display:flex;flex-wrap:wrap;gap:10px}
+.next-buttons .btn{flex:1 1 auto}
+.report-row{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.report-title{font-size:15px;font-weight:600;margin:0 0 2px}
+.report-email{font-size:15px;color:var(--body);word-break:break-all;margin:0}
+.resend-link{display:inline-flex;align-items:center;gap:6px;min-height:44px;font-size:14px;font-weight:600;color:var(--accent);text-decoration:none;white-space:nowrap}
+.resend-link:hover{text-decoration:underline}
+.report-desc{font-size:14px;color:var(--muted);line-height:1.6;margin:10px 0 0}
+.restart-row{text-align:center;margin-top:20px}
+.restart-link{display:inline-flex;align-items:center;min-height:44px;font-size:15px;font-weight:600;color:var(--accent);text-decoration:underline;text-underline-offset:3px}
+.section-heading{margin:0 0 12px;font-family:var(--serif);font-weight:500;font-size:24px}
 
-/* contact-capture form */
-.contact-card{
-  background:var(--white);
-  border-radius:20px;
-  padding:36px clamp(20px,4vw,44px);
-  box-shadow:0 4px 20px rgba(0,0,0,.05);
-  text-align:center;
-}
-.contact-icon{
-  width:52px; height:52px;
-  border-radius:14px;
-  background:var(--yellow-bg);
-  display:flex; align-items:center; justify-content:center;
-  margin:0 auto 16px;
-}
-.contact-card h2{ font-family:'Lora', serif; font-size:22px; font-weight:800; margin:0 0 8px; }
-.contact-card .sub{
-  font-size:14px; color:var(--grey-text); line-height:1.6;
-  max-width:420px; margin:0 auto 28px;
-}
-.field-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:16px;
-  text-align:left;
-  margin-bottom:16px;
-}
-@media (max-width:520px){
-  .field-grid{ grid-template-columns:1fr; }
-}
-.field label{
-  display:block;
-  font-size:13px;
-  font-weight:700;
-  margin-bottom:6px;
-}
-.field label .req{ color:#D64545; }
-.field input, .field textarea{
-  width:100%;
-  border:1.5px solid var(--border);
-  border-radius:12px;
-  padding:12px 14px;
-  font-size:14px;
-  font-family:inherit;
-  color:var(--ink);
-}
-.field input:focus, .field textarea:focus{
-  outline:none;
-  border-color:var(--coral);
-}
-.field textarea{ resize:vertical; min-height:80px; }
-.field input.invalid{ border-color:#D64545; }
-#emailHint{ min-height:24px; }
-.field-hint{ font-size:12.5px; line-height:1.5; margin:6px 0 0; color:#8A6300; }
-.field-hint.error{ color:#B02E2E; }
-.hint-btn{ background:none; border:none; padding:0; font:inherit; font-weight:700; color:var(--coral); text-decoration:underline; cursor:pointer; }
+/* swapping steps */
+#app.fade-in{animation:stepIn .22s ease}
+@keyframes stepIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 
-.concern-field{
-  background:transparent;
-  border:none;
-  padding:0;
-}
-.concern-label{
-  display:flex;
-  align-items:center;
-  font-size:13px;
-  font-weight:700;
-  margin-bottom:8px;
-}
-.optional-tag{
-  font-weight:500;
-  color:var(--grey-text);
-  margin-left:4px;
-}
-.concern-field textarea{
-  background:var(--pink-bg);
-  border:1.5px solid var(--border);
-  border-radius:12px;
-  padding:14px 16px;
-  font-size:14px;
-  font-family:inherit;
-  color:var(--ink);
-  width:100%;
-  min-height:90px;
-  resize:vertical;
-}
-.concern-field textarea:focus{
-  outline:none;
-  border-color:var(--coral);
-  background:var(--white);
-}
-.concern-field textarea::placeholder{
-  color:#9AA7B0;
-  font-style:italic;
-}
-.field-full{ grid-column:1 / -1; text-align:left; margin-bottom:16px; }
-.consent-row{
-  display:flex;
-  align-items:flex-start;
-  gap:10px;
-  background:var(--pink-bg);
-  border-radius:12px;
-  padding:14px 16px;
-  text-align:left;
-  font-size:13px;
-  color:var(--grey-text);
-  line-height:1.5;
-  margin-bottom:20px;
-}
-.consent-row input{ margin-top:2px; flex-shrink:0; }
-.form-error{
-  color:#D64545;
-  font-size:13px;
-  font-weight:600;
-  margin:-10px 0 16px;
-  text-align:left;
-}
-
-/* ---- expanded results page ---- */
-.result-icon-wrap{
-  width:60px; height:60px;
-  border-radius:50%;
-  border:2.5px solid currentColor;
-  display:flex; align-items:center; justify-content:center;
-  margin:0 auto 16px;
-}
-.card-block{
-  background:var(--white);
-  border-radius:20px;
-  padding:24px clamp(20px,4vw,32px);
-  box-shadow:0 4px 20px rgba(0,0,0,.05);
-  margin-top:18px;
-  text-align:left;
-}
-.report-row{
-  display:flex;
-  align-items:flex-start;
-  justify-content:space-between;
-  gap:12px;
-  flex-wrap:wrap;
-}
-.report-left{ display:flex; align-items:flex-start; gap:12px; }
-.report-icon{
-  width:40px; height:40px;
-  border-radius:50%;
-  background:var(--yellow-bg);
-  display:flex; align-items:center; justify-content:center;
-  flex-shrink:0;
-}
-.report-title{ font-size:15px; font-weight:800; margin:0 0 2px; }
-.report-email{ font-size:14px; color:var(--grey-text); word-break:break-all; }
-.resend-link{
-  display:inline-flex; align-items:center; gap:5px;
-  font-size:13px; font-weight:700; color:var(--coral);
-  text-decoration:none; white-space:nowrap;
-}
-.report-desc{ font-size:13px; color:var(--grey-text); line-height:1.6; margin:14px 0 0; }
-
-.card-block h3{ font-family:'Lora', serif; font-size:16px; font-weight:800; margin:0 0 14px; }
-.breakdown-icon{
-  width:28px; height:28px;
-  border-radius:50%;
-  background:var(--white);
-  display:flex; align-items:center; justify-content:center;
-  flex-shrink:0;
-}
-.next-desc{ font-size:13.5px; color:var(--grey-text); line-height:1.7; margin:0 0 18px; }
-.next-desc b{ color:var(--ink); }
-.next-buttons{ display:flex; flex-wrap:wrap; gap:10px; justify-content:center; }
-.next-btn{
-  display:flex; align-items:center; justify-content:center; gap:7px;
-  padding:12px 18px;
-  border-radius:999px;
-  font-weight:700;
-  font-size:13.5px;
-  text-decoration:none;
-  cursor:pointer;
-  border:1.5px solid var(--border);
-  background:var(--white);
-  color:var(--ink);
-  white-space:nowrap;
-}
-.next-btn.primary{
-  background:var(--coral);
-  border-color:var(--coral);
-  color:var(--white);
-}
-
-
-/* ---- symptom summary (no points) ---- */
-.summary-card{
-  background:var(--white);
-  border:1.5px solid var(--border);
-  border-radius:20px;
-  padding:32px clamp(20px,4vw,40px);
-  text-align:center;
-  box-shadow:0 4px 20px rgba(0,0,0,.05);
-}
-.summary-card .result-icon-wrap{ border-color:#296182; }
-.summary-card h2{ font-family:'Lora', serif; font-size:22px; font-weight:700; margin:0 0 8px; }
-.summary-sub{ font-size:14px; color:var(--grey-text); margin:0 0 20px; }
-.rec-box{
-  background:var(--yellow-bg);
-  border-radius:14px;
-  padding:18px 20px;
-  text-align:left;
-}
-.rec-title{ font-size:13px; font-weight:700; color:var(--coral); margin:0 0 6px; letter-spacing:.02em; }
-.rec-text{ font-size:14.5px; line-height:1.6; color:var(--ink); margin:0; }
-.sym-section{ padding:12px 14px; border-radius:12px; margin-bottom:8px; background:var(--pink-bg); }
-.sym-head{ display:flex; align-items:center; gap:10px; font-size:13.5px; font-weight:700; margin-bottom:6px; }
-.sym-list{ margin:0; padding:0 0 0 48px; }
-.sym-list li{ font-size:14px; color:var(--grey-text); line-height:1.6; }
-.skip-row{ margin-top:18px; padding-top:16px; border-top:1px solid var(--border); text-align:center; }
-.skip-btn{ background:none; border:none; padding:6px 4px; font:inherit; font-size:14px; font-weight:700; color:var(--coral); text-decoration:underline; cursor:pointer; }
-.skip-note{ font-size:12.5px; color:var(--grey-text); margin:4px 0 0; }
-.email-cta{ display:flex; width:100%; justify-content:center; margin-top:4px; border:none; font-family:inherit; }
-.sym-empty{ font-size:14px; color:var(--grey-text); margin:0; }
+.contact-card .nav-next{width:100%}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 <body>
 
-<div class="site-header">
-  <a class="title" href="index.html">MYO EDUCATION</a>
-  <nav class="site-nav">
-    <a href="index.html">HOME</a>
-    <a class="active" href="screening.html">SYMPTOM CHECKER</a>
-    <a href="https://www.airwayfocuseddentist.com.au/" target="_blank" rel="noopener">MYO-ONLINE</a>
-  </nav>
-</div>
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="index.html">MYO Education</a>
+    <nav class="site-nav" aria-label="Main">
+      <a class="nav-link" href="index.html">Home</a>
+      <a class="nav-link" href="https://www.airwayfocuseddentist.com.au/" target="_blank" rel="noopener">Myo-Online</a>
+      <a class="nav-cta" href="screening.html" aria-current="page">Symptom checker</a>
+    </nav>
+  </div>
+</header>
 
-<div class="top-banner">
-  <span class="badge-pill"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#296182" stroke-width="2" style="vertical-align:middle;margin-right:4px"><path d="M6 4v5a4 4 0 0 0 8 0V4"/><path d="M10 15v2a5 5 0 0 0 10 0v-2"/><circle cx="20" cy="11" r="1.5"/></svg> Orofacial Symptom Checker — O.A.S</span>
-  <h1>Red Flags for Paediatric Sleep Disordered Breathing</h1>
-  <p>A simple checklist to help you notice common signs of paediatric sleep disordered breathing (pSDB). This symptom checker is not a diagnosis.</p>
-</div>
+<main class="wrap" id="app"></main>
 
-<div class="wrap" id="app"></div>
+<footer class="site-footer">
+  <div class="container">
+    <span class="footer-brand">MYO Education</span>
+    <span>&copy; 2026 MYO Education. For general education only — not a substitute for a professional diagnosis. <a href="privacy.html">Privacy policy</a></span>
+  </div>
+</footer>
 
+<aside class="panel" id="infoPanel" role="dialog" aria-modal="true" aria-labelledby="infoTitle" aria-hidden="true">
+  <div class="panel-inner" id="infoInner"></div>
+</aside>
+
+<script src="site.js"></script>
+<script src="signs.js"></script>
 <script>
 /* ============================================================
    EMAILJS CONFIG — replace these 3 placeholders with your own
@@ -488,8 +155,44 @@ const EMAILJS_SERVICE_ID  = "service_ocpndqe";
 const EMAILJS_TEMPLATE_ID = "template_6q6ys4f";
 const CLINIC_EMAIL = "myoscreening@gmail.com";
 
+/* ============================================================
+   reCAPTCHA (stops people using your EmailJS keys directly)
+   ------------------------------------------------------------
+   1. Go to https://www.google.com/recaptcha/admin and register
+      a new site: type "reCAPTCHA v2" -> "I'm not a robot" checkbox.
+      Add your site's domain (e.g. yourname.github.io).
+   2. Paste the SITE key below.
+   3. In EmailJS: Email Templates -> your template -> Settings ->
+      tick "Enable reCAPTCHA V2 verification" and paste the
+      SECRET key there.
+   Leave the site key empty ("") to switch the checkbox off.
+   ============================================================ */
+const RECAPTCHA_SITE_KEY = "6LeFOustAAAAAIYJYFw-FnnpTEmlzPVhfye9NfNL";
+
 if (typeof emailjs !== 'undefined') {
   emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+}
+
+let recaptchaWidget = null;
+function mountRecaptcha(){
+  const box = document.getElementById('recaptchaBox');
+  if (!RECAPTCHA_SITE_KEY || !box) return;
+  if (window.grecaptcha && window.grecaptcha.render) {
+    recaptchaWidget = window.grecaptcha.render(box, { sitekey: RECAPTCHA_SITE_KEY });
+  } else {
+    window.__mountRecaptcha = mountRecaptcha;   // runs when Google's script finishes loading
+  }
+}
+window.onRecaptchaLoad = () => { if (window.__mountRecaptcha) window.__mountRecaptcha(); };
+if (RECAPTCHA_SITE_KEY) {
+  const s = document.createElement('script');
+  s.src = 'https://www.google.com/recaptcha/api.js?onload=onRecaptchaLoad&render=explicit';
+  s.async = true; s.defer = true;
+  document.head.appendChild(s);
+}
+function recaptchaToken(){
+  if (!RECAPTCHA_SITE_KEY) return null;
+  try { return window.grecaptcha ? window.grecaptcha.getResponse(recaptchaWidget) : ''; } catch(e) { return ''; }
 }
 
 /* ============================================================
@@ -500,84 +203,103 @@ if (typeof emailjs !== 'undefined') {
    neg   = (optional) which answer counts as "noticed". Defaults to
            "yes". Set neg:"no" on a question where answering No is
            the concerning answer.
+   sign  = (optional) which of the 21 signs in signs.js this links to.
+           Adds an ⓘ beside it on the summary page.
+   info  = (optional) the "What to look for" panel opened by the ⓘ
+           beside the question. title, tips (list) and img (optional).
    ============================================================ */
 
 const sections = [
   {
     title: "Sleep Behaviour",
     sub: "Answer Yes or No to each question about your child.",
-    icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#296182" stroke-width="2"><path d="M21 12.5A8.5 8.5 0 1 1 11.5 3a7 7 0 0 0 9.5 9.5z"/></svg>`,
+    icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3D6B57" stroke-width="2"><path d="M21 12.5A8.5 8.5 0 1 1 11.5 3a7 7 0 0 0 9.5 9.5z"/></svg>`,
     questions: [
-      { q: "Does your child snore loudly (louder than breathing, audible outside the room)?", label: "Loud snoring" },
-      { q: "Have you ever observed your child stop breathing, gasp, or choke during sleep?", label: "Stops breathing, gasps or chokes during sleep" },
-      { q: "Does your child sleep with their mouth open?", label: "Sleeps with mouth open" },
-      { q: "Does your child sweat excessively during sleep?", label: "Sweats excessively during sleep" },
+      { q: "Does your child snore loudly (louder than breathing, audible outside the room)?", label: "Loud snoring", sign: "snoring",
+        info: {"title": "Loud snoring", "img": "images/snoring.jpg", "tips": ["Listen from outside your child’s bedroom while they sleep.", "Answer Yes if you can hear snoring on most nights — not just when they have a cold."]} },
+      { q: "Have you ever observed your child stop breathing, gasp, or choke during sleep?", label: "Stops breathing, gasps or chokes during sleep",
+        info: {"title": "Pauses, gasps or choking in sleep", "tips": ["Look for breathing that stops for a few seconds, then restarts with a gasp, snort or cough.", "You may also notice the chest or tummy working hard, or your child waking suddenly.", "Answer Yes if you have ever seen this happen."]} },
+      { q: "Does your child sleep with their mouth open?", label: "Sleeps with mouth open", sign: "mouth-breathing" },
+      { q: "Does your child sweat excessively during sleep?", label: "Sweats excessively during sleep", sign: "night-sweats" },
       { q: "Does your child have restless, unsettled sleep (frequent position changes, falls out of bed)?", label: "Restless, unsettled sleep" },
-      { q: "Does your child have frequent night terrors or sleepwalking?", label: "Night terrors or sleepwalking" },
-      { q: "Does your child grind or clench their teeth at night (bruxism)?", label: "Grinds or clenches teeth at night" },
-      { q: "Do you find your child sleeping with a hyperextended neck?", label: "Sleeps with a hyperextended neck" },
+      { q: "Does your child have frequent night terrors or sleepwalking?", label: "Night terrors or sleepwalking", sign: "night-terrors" },
+      { q: "Does your child grind or clench their teeth at night (bruxism)?", label: "Grinds or clenches teeth at night", sign: "teeth-grinding" },
+      { q: "Do you find your child sleeping with a hyperextended neck?", label: "Sleeps with a hyperextended neck", sign: "body-posture",
+        info: {"title": "Sleeping with the neck stretched back", "tips": ["Check on your child while they’re asleep.", "Answer Yes if their head is often tipped right back with the chin pointing up, as if they’re stretching to breathe."]} },
       { q: "Does your child have low energy or daytime fatigue?", label: "Low energy or daytime fatigue" },
-      { q: "Did your child bedwet for a long time or still does (enuresis)?", label: "Bedwetting (enuresis)" },
+      { q: "Did your child bedwet for a long time or still does (enuresis)?", label: "Bedwetting (enuresis)", sign: "bedwetting",
+        info: {"title": "Bedwetting", "img": "images/bedwetting.jpg", "tips": ["Think about regular bedwetting after about age 5.", "Answer Yes if it went on for a long time, or still happens now."]} },
     ]
   },
   {
     title: "Daytime Behaviour & Functioning",
     sub: "Answer Yes or No to each question about your child.",
-    icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#296182" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>`,
+    icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3D6B57" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>`,
     questions: [
       { q: "Does your child appear tired or difficult to wake in the morning despite a full night's sleep?", label: "Tired or hard to wake despite a full night's sleep" },
-      { q: "Does your child have difficulty concentrating, is easily distracted, or has been assessed for ADHD?", label: "Difficulty concentrating, easily distracted, or assessed for ADHD" },
+      { q: "Does your child have difficulty concentrating, is easily distracted, or has been assessed for ADHD?", label: "Difficulty concentrating, easily distracted, or assessed for ADHD", sign: "adhd-like-symptoms" },
       { q: "Does your child have frequent mood changes, irritability, or behavioural concerns?", label: "Frequent mood changes, irritability or behavioural concerns" },
       { q: "Is your child falling asleep at school or during quiet daytime activities?", label: "Falls asleep at school or during quiet activities" },
-      { q: "Does your child have poor school performance or learning difficulties?", label: "Poor school performance or learning difficulties" },
+      { q: "Does your child have poor school performance or learning difficulties?", label: "Poor school performance or learning difficulties", sign: "learning-difficulties" },
       { q: "Does your child look sad generally and is grumpy a lot?", label: "Often looks sad or grumpy" },
     ]
   },
   {
     title: "Breathing & Sleep Health",
     sub: "Answer Yes or No to each question about your child.",
-    icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#296182" stroke-width="2"><path d="M6 4v5a4 4 0 0 0 8 0V4"/><path d="M10 15v2a5 5 0 0 0 10 0v-2"/><circle cx="20" cy="11" r="1.5"/></svg>`,
+    icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3D6B57" stroke-width="2"><path d="M6 4v5a4 4 0 0 0 8 0V4"/><path d="M10 15v2a5 5 0 0 0 10 0v-2"/><circle cx="20" cy="11" r="1.5"/></svg>`,
     questions: [
-      { q: "Does your child breathe through their mouth during the day?", label: "Breathes through the mouth during the day" },
-      { q: "Does your child struggle to keep the lips together?", label: "Struggles to keep lips together" },
-      { q: "Does your child have a persistently blocked nose, chronic allergies, or hay fever?", label: "Blocked nose, chronic allergies or hay fever" },
-      { q: "Has your child been told they have enlarged tonsils or adenoids?", label: "Told they have enlarged tonsils or adenoids" },
-      { q: "When your child opens wide, sticks their tongue out and says \"ahhh\", can you clearly see the back of the throat?", label: "Back of the throat hard to see when saying \"ahhh\"", neg: "no" },
-      { q: "Does your child have frequent ear infections or glue ear (otitis media with effusion)?", label: "Frequent ear infections or glue ear" },
-      { q: "Does your child have recurrent throat infections or tonsillitis?", label: "Recurrent throat infections or tonsillitis" },
+      { q: "Does your child breathe through their mouth during the day?", label: "Breathes through the mouth during the day", sign: "mouth-breathing",
+        info: {"title": "Breathing through the mouth", "img": "images/mouth-breathing.jpg", "tips": ["Watch your child when they’re relaxed — watching TV, reading or concentrating.", "Answer Yes if their lips are apart and they’re breathing through the mouth most of the time.", "Mouth breathing only while they have a cold doesn’t count."]} },
+      { q: "Does your child struggle to keep the lips together?", label: "Struggles to keep lips together", sign: "mouth-breathing",
+        info: {"title": "Keeping the lips together", "tips": ["At rest, are your child’s lips gently closed without any effort?", "Signs of strain include a tight, dimpled chin when the lips are closed, or lips that keep drifting apart.", "Answer Yes if they often rest with their lips apart."]} },
+      { q: "Does your child have a persistently blocked nose, chronic allergies, or hay fever?", label: "Blocked nose, chronic allergies or hay fever", sign: "allergies" },
+      { q: "Has your child been told they have enlarged tonsils or adenoids?", label: "Told they have enlarged tonsils or adenoids", sign: "enlarged-tonsils" },
+      { q: "When your child opens wide, sticks their tongue out and says \"ahhh\", can you clearly see the back of the throat?", label: "Back of the throat hard to see when saying \"ahhh\"", neg: "no", sign: "enlarged-tonsils",
+        info: {"title": "Seeing the back of the throat", "img": "images/enlarged-tonsils.jpg", "tips": ["Use a torch, and ask your child to open wide and stick their tongue right out.", "Answer Yes if you can clearly see the back wall of the throat.", "Answer No if large tonsils or the tongue block most of the view."]} },
+      { q: "Does your child have frequent ear infections or glue ear (otitis media with effusion)?", label: "Frequent ear infections or glue ear", sign: "ear-infections",
+        info: {"title": "Ear infections and glue ear", "img": "images/ear-infections.jpg", "tips": ["Glue ear is a build-up of fluid behind the eardrum that can muffle hearing.", "Count ear infections treated by a doctor, or grommets being fitted.", "Answer Yes if infections happen several times a year, or glue ear has been diagnosed."]} },
+      { q: "Does your child have recurrent throat infections or tonsillitis?", label: "Recurrent throat infections or tonsillitis", sign: "enlarged-tonsils" },
     ]
   },
   {
     title: "Facial & Dental Development",
     sub: "Answer Yes or No to each question about your child.",
-    icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#296182" stroke-width="2"><path d="M12 3c-3 0-5 2-5 5 0 3 1 4 1 7 0 2 1 3 2 3s1.5-2 2-2 1.5 2 2 2 2-1 2-3c0-3 1-4 1-7 0-3-2-5-5-5z"/></svg>`,
+    icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3D6B57" stroke-width="2"><path d="M12 3c-3 0-5 2-5 5 0 3 1 4 1 7 0 2 1 3 2 3s1.5-2 2-2 1.5 2 2 2 2-1 2-3c0-3 1-4 1-7 0-3-2-5-5-5z"/></svg>`,
     questions: [
-      { q: "Does your child have crowded, crooked or misaligned teeth?", label: "Crowded, crooked or misaligned teeth" },
-      { q: "Does your child have a narrow or high-arched palate?", label: "Narrow or high-arched palate" },
-      { q: "Does your child have a significant overbite, overjet (buck teeth), underbite, or crossbite?", label: "Significant overbite, overjet, underbite or crossbite" },
-      { q: "Does your child have a long, narrow face or a recessed lower jaw?", label: "Long, narrow face or recessed lower jaw" },
+      { q: "Does your child have crowded, crooked or misaligned teeth?", label: "Crowded, crooked or misaligned teeth", sign: "crowding" },
+      { q: "Does your child have a narrow or high-arched palate?", label: "Narrow or high-arched palate", sign: "crowding",
+        info: {"title": "A narrow or high-arched palate", "tips": ["Ask your child to open wide and tilt their head back, then look at the roof of their mouth with a torch.", "A high-arched palate looks deep and steep, like a tall dome or a “V”, rather than a gentle, wide curve.", "If you’re not sure, your dentist can check this for you."]} },
+      { q: "Does your child have a significant overbite, overjet (buck teeth), underbite, or crossbite?", label: "Significant overbite, overjet, underbite or crossbite", sign: "crossbite",
+        info: {"title": "Bite problems", "img": "images/crossbite.jpg", "tips": ["Overbite or overjet: the top front teeth cover the bottom ones deeply, or sit well in front of them (“buck teeth”).", "Underbite: the bottom front teeth sit in front of the top ones.", "Crossbite: some top teeth sit behind the bottom teeth when your child bites together."]} },
+      { q: "Does your child have a long, narrow face or a recessed lower jaw?", label: "Long, narrow face or recessed lower jaw", sign: "body-posture",
+        info: {"title": "A long face or recessed lower jaw", "tips": ["Look at your child side-on, with their teeth gently together.", "A recessed lower jaw means the chin sits noticeably further back than the upper lip.", "A long, narrow face often comes with a narrow smile."]} },
       { q: "Has your child had or been referred for orthodontic treatment involving extractions?", label: "Had or referred for orthodontic treatment with extractions" },
-      { q: "Does your child have facial asymmetries (nostrils, eyes, cheeks, chin) or imbalances?", label: "Facial asymmetries or imbalances" },
-      { q: "Does your child have black circles under the eyes?", label: "Dark circles under the eyes" },
-      { q: "Is your child's profile concave or very convex?", label: "Concave or very convex profile" },
+      { q: "Does your child have facial asymmetries (nostrils, eyes, cheeks, chin) or imbalances?", label: "Facial asymmetries or imbalances", sign: "facial-asymmetries",
+        info: {"title": "Facial asymmetries", "img": "images/facial-asymmetries.jpg", "tips": ["Look straight at your child’s face in good light.", "Compare the left and right sides: nostrils, eyes, cheeks, the corners of the mouth and the chin.", "Answer Yes if one side looks clearly different from the other."]} },
+      { q: "Does your child have black circles under the eyes?", label: "Dark circles under the eyes", sign: "dark-circles" },
+      { q: "Is your child's profile concave or very convex?", label: "Concave or very convex profile", sign: "facial-asymmetries",
+        info: {"title": "The side profile", "tips": ["Look at your child side-on while they’re relaxed.", "Very convex: the chin sits well back, so the face curves outward from forehead to nose to chin.", "Concave: the middle of the face looks flat or dished in, with the chin further forward."]} },
     ]
   },
   {
     title: "Tongue & Swallowing Function",
     sub: "Answer Yes or No to each question about your child.",
-    icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#296182" stroke-width="2"><path d="M6 4h12v6a6 6 0 0 1-12 0V4z"/><path d="M9 20c0-2 1.5-3.5 3-3.5s3 1.5 3 3.5"/></svg>`,
+    icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3D6B57" stroke-width="2"><path d="M6 4h12v6a6 6 0 0 1-12 0V4z"/><path d="M9 20c0-2 1.5-3.5 3-3.5s3 1.5 3 3.5"/></svg>`,
     questions: [
-      { q: "Does your child have a tongue thrust (tongue pushes between the teeth when swallowing or speaking)?", label: "Tongue thrust when swallowing or speaking" },
-      { q: "Does your child have a lisp or difficulty with certain speech sounds (e.g. S, SH, TH)?", label: "Lisp or difficulty with certain speech sounds" },
-      { q: "Has your child been seen by a speech and language therapist?", label: "Seen by a speech and language therapist" },
-      { q: "Did your child have difficulties breastfeeding or was tongue tie (ankyloglossia) suspected?", label: "Breastfeeding difficulties or suspected tongue tie" },
-      { q: "Does your child prefer soft foods or avoid hard textures?", label: "Prefers soft foods or avoids hard textures" },
+      { q: "Does your child have a tongue thrust (tongue pushes between the teeth when swallowing or speaking)?", label: "Tongue thrust when swallowing or speaking", sign: "tongue-tie",
+        info: {"title": "Tongue thrust", "tips": ["Watch your child swallow a sip of water, or say words with “S” and “T” sounds.", "Answer Yes if you can see the tongue pushing forward between the teeth."]} },
+      { q: "Does your child have a lisp or difficulty with certain speech sounds (e.g. S, SH, TH)?", label: "Lisp or difficulty with certain speech sounds", sign: "speech-issues" },
+      { q: "Has your child been seen by a speech and language therapist?", label: "Seen by a speech and language therapist", sign: "speech-issues" },
+      { q: "Did your child have difficulties breastfeeding or was tongue tie (ankyloglossia) suspected?", label: "Breastfeeding difficulties or suspected tongue tie", sign: "tongue-tie",
+        info: {"title": "Tongue tie", "img": "images/tongue-tie.jpg", "tips": ["Tongue tie is when the strip of tissue under the tongue is short or tight.", "Signs include a tongue that can’t poke out past the lips or lift to the top teeth, or looks heart-shaped when stuck out.", "Answer Yes if this was suspected, or if feeding was difficult as a baby."]} },
+      { q: "Does your child prefer soft foods or avoid hard textures?", label: "Prefers soft foods or avoids hard textures", sign: "picky-eating" },
     ]
   },
   {
     title: "Habits & History",
     sub: "Answer Yes or No to each question about your child.",
-    icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#296182" stroke-width="2"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 3h6v2H9z"/><path d="M8 10h8M8 14h8M8 18h5"/></svg>`,
+    icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3D6B57" stroke-width="2"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 3h6v2H9z"/><path d="M8 10h8M8 14h8M8 18h5"/></svg>`,
     questions: [
       { q: "Has your child used a dummy/pacifier beyond age 3?", label: "Used a dummy/pacifier beyond age 3" },
       { q: "Does your child suck their thumb or fingers?", label: "Sucks thumb or fingers" },
@@ -587,65 +309,78 @@ const sections = [
   }
 ];
 
-
 let currentSection = 0;
 const answers = {}; // key: "sectionIdx-questionIdx" -> true/false
 
 const app = document.getElementById('app');
+const { overlay } = window.MYO;
 
 function questionKey(si, qi){ return si + '-' + qi; }
+
+// fade the main area in whenever we move to a new step
+function showStep(){
+  app.classList.remove('fade-in'); void app.offsetWidth; app.classList.add('fade-in');
+}
 
 function renderSection(){
   const s = sections[currentSection];
   const answeredCount = s.questions.filter((_, qi) => answers[questionKey(currentSection, qi)] !== undefined).length;
   const allAnswered = answeredCount === s.questions.length;
-  const progressPct = ((currentSection) / sections.length) * 100 + (100/sections.length) * (answeredCount / s.questions.length);
+  const segs = sections.map((_, i) => {
+    const fill = i < currentSection ? 1 : i === currentSection ? answeredCount / s.questions.length : 0;
+    return `<span><i style="transform:scaleX(${fill})"></i></span>`;
+  }).join('');
 
   app.innerHTML = `
-    <div class="progress-track"><div class="progress-fill" style="width:${progressPct}%"></div></div>
+    <p class="kicker page-kicker">Orofacial symptom checker — O.A.S</p>
+    <div class="progress" aria-hidden="true">${segs}</div>
     <div class="section-head">
-      <div class="section-icon">${s.icon}</div>
-      <div>
-        <div class="section-meta">SECTION ${currentSection+1} OF ${sections.length}</div>
-        <h2>${s.title}</h2>
-        <p class="sub">${s.sub}</p>
-      </div>
+      <p class="section-meta">Section ${currentSection+1} of ${sections.length}</p>
+      <h1>${s.title}</h1>
+      <p class="sub">${s.sub}</p>
     </div>
     <div id="questions"></div>
     <div class="nav-row">
-      ${currentSection > 0 ? `<button class="nav-back" id="backBtn">← Back</button>` : ''}
-      <button class="nav-next" id="nextBtn" ${allAnswered ? '' : 'disabled'}>
-        ${currentSection === sections.length - 1 ? 'Continue →' : 'Next Section →'}
+      ${currentSection > 0 ? `<button type="button" class="nav-back" id="backBtn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>Back</button>` : ''}
+      <button type="button" class="nav-next" id="nextBtn" ${allAnswered ? '' : 'disabled'}>
+        ${currentSection === sections.length - 1 ? 'Continue' : 'Next section'}
       </button>
     </div>
+    ${allAnswered ? '' : `<p class="nav-hint">Answer every question in this section to continue (${answeredCount} of ${s.questions.length} done).</p>`}
   `;
 
   const qContainer = document.getElementById('questions');
   s.questions.forEach((item, qi) => {
     const key = questionKey(currentSection, qi);
     const current = answers[key];
-    const div = document.createElement('div');
-    div.className = 'question';
-    div.innerHTML = `
-      <p>${item.q}</p>
+    const fs = document.createElement('fieldset');
+    fs.className = 'question';
+    fs.innerHTML = `
+      <legend>${window.MYO.withInfo(item.q, item.info ? `<button type="button" class="info-btn" aria-label="What to look for">${window.MYO.infoIcon}</button>` : '')}</legend>
       <div class="yn-row">
-        <button class="yn-btn ${current === true ? 'selected ' + ((item.neg || 'yes') === 'yes' ? 'negative' : 'positive') : ''}" data-val="true">Yes</button>
-        <button class="yn-btn ${current === false ? 'selected ' + ((item.neg || 'yes') === 'no' ? 'negative' : 'positive') : ''}" data-val="false">No</button>
+        <button type="button" class="yn-btn" data-val="true" aria-pressed="${current === true}">Yes</button>
+        <button type="button" class="yn-btn" data-val="false" aria-pressed="${current === false}">No</button>
       </div>
     `;
-    div.querySelectorAll('.yn-btn').forEach(btn => {
+    fs.querySelectorAll('.yn-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         const clickedVal = (btn.dataset.val === 'true');
         answers[key] = (answers[key] === clickedVal) ? undefined : clickedVal;
         if (answers[key] === undefined) delete answers[key];
+        const y = window.scrollY;
         renderSection();
+        window.scrollTo(0, y);
+        const again = document.querySelectorAll('.question')[qi];
+        if (again) again.querySelector(`.yn-btn[data-val="${btn.dataset.val}"]`).focus({ preventScroll:true });
       });
     });
-    qContainer.appendChild(div);
+    const infoBtn = fs.querySelector('.info-btn');
+    if (infoBtn) infoBtn.addEventListener('click', () => openInfo(item.info, infoBtn));
+    qContainer.appendChild(fs);
   });
 
   const backBtn = document.getElementById('backBtn');
-  if (backBtn) backBtn.addEventListener('click', () => { currentSection--; renderSection(); window.scrollTo({top:0, behavior:'smooth'}); });
+  if (backBtn) backBtn.addEventListener('click', () => { currentSection--; renderSection(); showStep(); window.scrollTo({top:0, behavior:'smooth'}); });
 
   const nextBtn = document.getElementById('nextBtn');
   nextBtn.addEventListener('click', () => {
@@ -655,8 +390,48 @@ function renderSection(){
     } else {
       renderContactForm();
     }
+    showStep();
     window.scrollTo({top:0, behavior:'smooth'});
   });
+}
+
+/* ---------- the slide-in info panel (questions and summary) ---------- */
+const infoPanel = document.getElementById('infoPanel');
+const infoInner = document.getElementById('infoInner');
+
+function fillPanel(html, opener){
+  infoInner.innerHTML = `<span class="handle" aria-hidden="true"></span>` + html;
+  infoInner.querySelectorAll('[data-close]').forEach(b => b.addEventListener('click', () => overlay.close(infoPanel)));
+  overlay.open(infoPanel, opener);
+}
+
+function openInfo(info, opener){
+  fillPanel(`
+    <div class="panel-top">
+      <p class="kicker">What to look for</p>
+      <button type="button" class="icon-btn" data-close aria-label="Close" data-autofocus>${window.MYO.closeIcon}</button>
+    </div>
+    <h2 id="infoTitle">${info.title}</h2>
+    ${info.img ? `<span class="illus" style="margin-top:14px"><img src="${info.img}" alt=""></span>` : '<div style="height:14px"></div>'}
+    <ul class="tips">${info.tips.map(t => `<li>${t}</li>`).join('')}</ul>
+    <button type="button" class="btn btn-primary btn-block" data-close>Got it</button>
+  `, opener);
+}
+
+function openSignInfo(signId, opener){
+  const s = window.MYO_SIGN_BY_ID[signId];
+  if (!s) return;
+  fillPanel(`
+    <div class="panel-top">
+      <p class="kicker">About this sign</p>
+      <button type="button" class="icon-btn" data-close aria-label="Close" data-autofocus>${window.MYO.closeIcon}</button>
+    </div>
+    <h2 id="infoTitle">${s.name}</h2>
+    <p class="panel-sub">${s.subtitle}</p>
+    <span class="illus"><img src="${s.img}" alt="Illustration: ${s.name}"></span>
+    ${s.paras.map(p => `<p>${p}</p>`).join('')}
+    <button type="button" class="btn btn-secondary btn-block" data-close style="margin-top:8px">Back to my summary</button>
+  `, opener);
 }
 
 const contactInfo = {};
@@ -727,13 +502,14 @@ function checkEmail(raw){
 }
 
 // what the parent has typed so far, kept if they skip and come back
-const formDraft = { parentName:'', childName:'', childAge:'', email:'', concern:'', consent:false };
+const formDraft = { parentName:'', childName:'', childAge:'', email:'', concern:'', consent:false, share:false };
 function saveDraft(){
   const v = id => (document.getElementById(id) || {}).value || '';
   Object.assign(formDraft, {
     parentName: v('f-parentName'), childName: v('f-childName'), childAge: v('f-childAge'),
     email: v('f-email'), concern: v('f-concern'),
-    consent: !!(document.getElementById('f-consent') || {}).checked
+    consent: !!(document.getElementById('f-consent') || {}).checked,
+    share: !!(document.getElementById('f-share') || {}).checked
   });
 }
 
@@ -742,49 +518,63 @@ function renderContactForm(fromResults = false){
   app.innerHTML = `
     <div class="contact-card">
       <div class="contact-icon">
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#296182" stroke-width="2"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 3h6v2H9z"/><path d="M8 10h8M8 14h8M8 18h5"/></svg>
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#3D6B57" stroke-width="2"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 3h6v2H9z"/><path d="M8 10h8M8 14h8M8 18h5"/></svg>
       </div>
-      <h2>${fromResults ? 'Email this report' : 'Almost there'}</h2>
+      <h1>${fromResults ? 'Email this report' : 'Almost there'}</h1>
       <p class="sub">${fromResults
         ? 'Enter your details and we\'ll email a copy of your summary so you can take it to your appointment.'
-        : 'Your answers have been recorded. Enter your details to see a summary of the signs you noticed and receive a copy by email.'}</p>
+        : 'You\'ve answered all the questions. Add your details to have your summary emailed to you, or skip this step to see your results without sending anything.'}</p>
 
       <div class="field-grid">
         <div class="field">
-          <label>Your Name <span class="req">*</span></label>
-          <input type="text" id="f-parentName" placeholder="Parent / Guardian name" autocomplete="name" autocapitalize="words" />
+          <label for="f-parentName">Your name <span class="req" aria-hidden="true">*</span></label>
+          <input type="text" id="f-parentName" placeholder="Parent / guardian name" autocomplete="name" autocapitalize="words" maxlength="80" required />
         </div>
         <div class="field">
-          <label>Child's Name <span class="req">*</span></label>
-          <input type="text" id="f-childName" placeholder="Child's first name" autocomplete="off" autocapitalize="words" />
+          <label for="f-childName">Child's first name <span class="req" aria-hidden="true">*</span></label>
+          <input type="text" id="f-childName" placeholder="e.g. Sam" autocomplete="off" autocapitalize="words" maxlength="60" required />
         </div>
         <div class="field">
-          <label>Child's Age <span class="req">*</span></label>
-          <input type="number" id="f-childAge" placeholder="e.g. 8" min="4" max="17" />
+          <label for="f-childAge">Child's age <span class="req" aria-hidden="true">*</span></label>
+          <input type="number" id="f-childAge" placeholder="e.g. 8" min="4" max="17" inputmode="numeric" required />
         </div>
         <div class="field">
-          <label>Your Email <span class="req">*</span></label>
-          <input type="email" id="f-email" placeholder="your@email.com" autocomplete="email" />
+          <label for="f-email">Your email <span class="req" aria-hidden="true">*</span></label>
+          <input type="email" id="f-email" placeholder="your@email.com" autocomplete="email" maxlength="120" required aria-describedby="emailHint" />
           <div id="emailHint"></div>
         </div>
       </div>
 
       <div class="field-full concern-field">
-        <label class="concern-label">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#296182" stroke-width="2" style="vertical-align:middle;margin-right:6px;"><path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5c-1.4 0-2.7-.3-3.9-.9L3 20l1-4.9A8.5 8.5 0 1 1 21 11.5z"/></svg>
+        <label class="concern-label" for="f-concern">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3D6B57" stroke-width="2" style="vertical-align:middle;margin-right:6px;"><path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5c-1.4 0-2.7-.3-3.9-.9L3 20l1-4.9A8.5 8.5 0 1 1 21 11.5z"/></svg>
           Main concern <span class="optional-tag">(optional)</span>
         </label>
-        <textarea id="f-concern" placeholder="e.g. My child snores loudly and seems tired all the time..."></textarea>
+        <textarea id="f-concern" maxlength="1000" placeholder="e.g. My child snores loudly and seems tired all the time..."></textarea>
+      </div>
+
+      <div class="privacy-note" id="privacyNote">
+        <p class="privacy-title">Who receives this</p>
+        <ul>
+          <li>We'll email this summary, with the details above and your answers, to the address you enter.</li>
+          <li>A copy also goes to the MYO Education team at ${CLINIC_EMAIL}, so we can answer any questions you have.</li>        </ul>
+        <p class="privacy-more">Read our <a href="privacy.html" target="_blank" rel="noopener">privacy policy</a>. Rather not share anything? Use <b>Skip for now</b> below and nothing is sent.</p>
       </div>
 
       <div class="consent-row">
         <input type="checkbox" id="f-consent" />
         <label for="f-consent">I understand this is a symptom checker only and not a diagnosis. A full assessment can only be provided after a clinical consultation.</label>
       </div>
+      <div class="consent-row">
+        <input type="checkbox" id="f-share" />
+        <label for="f-share">I agree to my details and my child's answers being emailed to me and to the MYO Education team, as described above.</label>
+      </div>
 
-      <div id="formError"></div>
+      <div id="recaptchaBox" class="recaptcha-box"></div>
 
-      <button class="nav-next" id="submitBtn">${fromResults ? 'Email My Report →' : 'Get My Results &amp; Report →'}</button>
+      <div id="formError" role="alert"></div>
+
+      <button class="nav-next" id="submitBtn">${fromResults ? 'Email my report' : 'Get my results &amp; report'}</button>
 
       <div class="skip-row">
         ${fromResults
@@ -802,10 +592,16 @@ function renderContactForm(fromResults = false){
   document.getElementById('f-email').value = formDraft.email;
   document.getElementById('f-concern').value = formDraft.concern;
   document.getElementById('f-consent').checked = formDraft.consent;
+  document.getElementById('f-share').checked = formDraft.share;
+  mountRecaptcha();
+  // keep what's typed if the parent leaves this step with the browser's Back button
+  app.querySelector('.contact-card').addEventListener('input', saveDraft);
+  app.querySelector('.contact-card').addEventListener('change', saveDraft);
 
   document.getElementById('skipBtn').addEventListener('click', () => {
     saveDraft();
     renderResults('skipped');
+    showStep();
     window.scrollTo({top:0, behavior:'smooth'});
   });
 
@@ -876,19 +672,29 @@ function renderContactForm(fromResults = false){
       errorEl.innerHTML = `<p class="form-error">Please confirm you understand this is a symptom checker, not a diagnosis.</p>`;
       return;
     }
+    if (!document.getElementById('f-share').checked) {
+      errorEl.innerHTML = `<p class="form-error">To email your summary we need your agreement to send it to you and to our team. If you'd rather not, use “Skip for now” to see your results without sending anything.</p>`;
+      return;
+    }
+    const token = recaptchaToken();
+    if (token === '') {
+      errorEl.innerHTML = `<p class="form-error">Please tick “I'm not a robot” before sending.</p>`;
+      return;
+    }
 
     Object.assign(contactInfo, { parentName, childName, childAge, email: emailCheck.email, concern });
     saveDraft();
 
     const submitBtn = document.getElementById('submitBtn');
     submitBtn.disabled = true;
-    submitBtn.textContent = 'Sending your report...';
+    submitBtn.textContent = 'Sending your report…';
 
-    sendReportEmail()
-      .then(() => { lastEmailStatus = 'success'; })
+    sendReportEmail(token)
+      .then(() => { lastEmailStatus = 'success'; resendCount = 0; })
       .catch(() => { lastEmailStatus = 'error'; })
       .finally(() => {
         renderResults('emailed');
+        showStep();
         window.scrollTo({top:0, behavior:'smooth'});
       });
   });
@@ -911,19 +717,11 @@ function computeResults(){
   return { bySection, total };
 }
 
+// Plain text only. The email template shows it with {{symptoms_list}} (two braces),
+// so EmailJS escapes it and nobody can slip their own HTML into an email.
 function buildSymptomsText(bySection){
   if (!bySection.length) return 'No signs were reported.';
-  return bySection.map(sec => sec.title + '\n' + sec.items.map(i => '  - ' + i).join('\n')).join('\n\n');
-}
-
-function buildSymptomsHtml(bySection){
-  if (!bySection.length) return '<p style="margin:0;">No signs were reported.</p>';
-  return bySection.map(sec =>
-    '<p style="margin:0 0 4px; font-weight:bold; color:#1A1F23;">' + esc(sec.title) + '</p>' +
-    '<ul style="margin:0 0 12px; padding-left:20px;">' +
-      sec.items.map(i => '<li style="margin:0 0 2px;">' + esc(i) + '</li>').join('') +
-    '</ul>'
-  ).join('');
+  return bySection.map(sec => sec.title.toUpperCase() + '\n' + sec.items.map(i => '•  ' + i).join('\n')).join('\n\n');
 }
 
 const RECOMMENDATION = "We recommend booking an appointment with your GP or a qualified health practitioner to talk through these signs. Bring this summary with you — it will help them understand what you've noticed.";
@@ -931,7 +729,10 @@ const RECOMMENDATION_NONE = "You didn't report any of the signs we asked about. 
 
 let lastEmailStatus = null; // 'success' | 'error' | null
 
-function sendReportEmail(){
+let resendCount = 0;
+let sending = false;
+
+function sendReportEmail(token){
   if (typeof emailjs === 'undefined' || EMAILJS_PUBLIC_KEY === "YOUR_PUBLIC_KEY") {
     return Promise.reject(new Error('EmailJS not configured'));
   }
@@ -945,13 +746,19 @@ function sendReportEmail(){
     parent_email: contactInfo.email || '',
     main_concern: contactInfo.concern || '(not provided)',
     symptom_count: r.total,
-    symptoms_list: buildSymptomsText(r.bySection),   // plain-text fallback
-    symptoms_html: buildSymptomsHtml(r.bySection),   // use {{{symptoms_html}}} in the template
+    symptoms_list: buildSymptomsText(r.bySection),   // use {{symptoms_list}} (two braces) in the template
     recommendation: r.total ? RECOMMENDATION : RECOMMENDATION_NONE,
-    submitted_at: new Date().toLocaleString(),
+    submitted_at: new Date().toLocaleString('en-AU', { dateStyle:'long', timeStyle:'short' }),
   };
-  return emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams);
+  if (token) templateParams['g-recaptcha-response'] = token;
+  sending = true;
+  return emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
+    .finally(() => {
+      sending = false;
+      if (RECAPTCHA_SITE_KEY && window.grecaptcha) { try { window.grecaptcha.reset(recaptchaWidget); } catch(e) {} }
+    });
 }
+
 
 // mode: 'emailed' (details given, email attempted) or 'skipped' (no details, nothing sent)
 function renderResults(mode = 'emailed'){
@@ -961,70 +768,58 @@ function renderResults(mode = 'emailed'){
   const name = skipped ? formatName(formDraft.childName) : contactInfo.childName;
   const who = name ? esc(name) + "'s" : "Your child's";
 
-  const symptomsHtml = r.total ? r.bySection.map(sec => `
-      <div class="sym-section">
-        <div class="sym-head">
-          <div class="breakdown-icon">${sec.icon}</div>
-          <span>${sec.title}</span>
-        </div>
+  // same sections as the email, plus a link to the matching sign (for the ⓘ button)
+  const rich = sections.map((s, si) => ({
+    title: s.title,
+    items: s.questions.filter((item, qi) => isNoticed(item, answers[questionKey(si, qi)]))
+  })).filter(sec => sec.items.length);
+
+  const symptomsHtml = r.total ? rich.map(sec => `
+      <div class="sym-sec">
+        <p class="sym-sec-title">${sec.title}</p>
         <ul class="sym-list">
-          ${sec.items.map(i => `<li>${i}</li>`).join('')}
+          ${sec.items.map(it => `<li>${window.MYO.withInfo(it.label || it.q, it.sign && window.MYO_SIGN_BY_ID[it.sign]
+            ? `<button type="button" class="info-btn" data-sign="${it.sign}" aria-label="About this sign">${window.MYO.infoIcon}</button>` : '')}</li>`).join('')}
         </ul>
       </div>`).join('')
     : `<p class="sym-empty">You answered "No" to every question.</p>`;
 
-  app.innerHTML = `
-    <div class="summary-card">
-      <div class="result-icon-wrap" style="color:#296182;">
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#296182" stroke-width="2"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 3h6v2H9z"/><path d="M9 13l2 2 4-4"/></svg>
-      </div>
-      <h2>${who} symptom checker summary</h2>
-      <p class="summary-sub">${r.total
-        ? `You noticed <b>${r.total}</b> of the signs we asked about. They're listed below.`
-        : `You didn't report any of the signs we asked about.`}</p>
-      <div class="rec-box">
-        <p class="rec-title">Our recommendation</p>
-        <p class="rec-text">${r.total ? RECOMMENDATION : RECOMMENDATION_NONE}</p>
-      </div>
-      <p class="results-note" style="margin-top:14px;">This is a symptom checker only — it doesn't diagnose any condition. A diagnosis can only be made after a clinical examination.</p>
-    </div>
+  const mailIcon = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>';
 
-    <div class="card-block">
-      <h3>Signs you noticed</h3>
-      ${symptomsHtml}
+  app.innerHTML = `
+    <div class="results-head">
+      <p class="kicker">Your summary</p>
+      <h1>${who} symptom checker summary</h1>
+      <p class="summary-sub">${r.total
+        ? `You noticed <b>${r.total}</b> of the signs we asked about. They're listed below — tap the ⓘ beside a sign to read more about it.`
+        : `You didn't report any of the signs we asked about.`}</p>
     </div>
+    <div class="rec-box">
+      <p class="kicker">Our recommendation</p>
+      <p class="rec-text">${r.total ? RECOMMENDATION : RECOMMENDATION_NONE}</p>
+    </div>
+    <p class="results-note">This is a symptom checker only — it doesn't diagnose any condition. A diagnosis can only be made after a clinical examination.</p>
+
+    <h2 class="section-heading">Signs you noticed</h2>
+    ${symptomsHtml}
 
     ${skipped ? `
     <div class="card-block">
       <h3>Want a copy for your appointment?</h3>
       <p class="next-desc">Nothing has been emailed yet. If you'd like this summary sent to you, so you can show it to your GP or health practitioner, add your details and we'll email it.</p>
-      <button class="nav-next email-cta" id="emailReportBtn">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" style="margin-right:8px"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
-        Email this report
-      </button>
-      <div class="next-buttons" style="margin-top:12px;">
-        <a class="next-btn" href="index.html">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#296182" stroke-width="2"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg>
-          Learn about the signs
-        </a>
+      <div class="next-buttons">
+        <button type="button" class="btn btn-primary" id="emailReportBtn">${mailIcon}Email this report</button>
+        <a class="btn btn-secondary" href="index.html">Learn about the signs</a>
       </div>
     </div>
     ` : `
     <div class="card-block">
       <div class="report-row">
-        <div class="report-left">
-          <div class="report-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#296182" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
-          </div>
-          <div>
-            <p class="report-title">${lastEmailStatus === 'success' ? 'Summary Sent to' : 'Summary Not Sent'}</p>
-            ${lastEmailStatus === 'success' ? `<p class="report-email">${email}</p>` : `<p class="report-email" style="color:#B02E2E;">We couldn't send your summary automatically. Please contact us directly.</p>`}
-          </div>
+        <div>
+          <p class="report-title">${lastEmailStatus === 'success' ? 'Summary sent to' : 'Summary not sent'}</p>
+          ${lastEmailStatus === 'success' ? `<p class="report-email">${email}</p>` : `<p class="report-email" style="color:var(--error);">We couldn't send your summary automatically. Please contact us directly.</p>`}
         </div>
-        <a class="resend-link" id="resendLink" href="#" role="button">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#296182" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
-          <span id="resendLabel">Resend Summary</span>
-        </a>
+        <a class="resend-link" id="resendLink" href="#" role="button">${mailIcon}<span id="resendLabel">Resend summary</span></a>
       </div>
       <p class="report-desc">${lastEmailStatus === 'success' ? "A copy of this summary has been sent to your email so you can take it to your appointment." : "If this keeps happening, please email us directly using the button below."}</p>
     </div>
@@ -1033,28 +828,33 @@ function renderResults(mode = 'emailed'){
       <h3>What happens next?</h3>
       <p class="next-desc">A copy of your summary has also been shared with our team at <b>myoscreening@gmail.com</b>. If you have questions about any of the signs above, you're welcome to get in touch.</p>
       <div class="next-buttons">
-        <a class="next-btn primary" href="mailto:myoscreening@gmail.com">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
-          Email Us
-        </a>
-        <a class="next-btn" href="index.html">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#296182" stroke-width="2"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg>
-          Learn about the signs
-        </a>
+        <a class="btn btn-primary" href="mailto:myoscreening@gmail.com">${mailIcon}Email us</a>
+        <a class="btn btn-secondary" href="index.html">Learn about the signs</a>
       </div>
     </div>
     `}
 
-    <div style="text-align:center;">
+    <div class="restart-row">
       <a class="restart-link" id="restartLink" href="#" role="button">Start over</a>
     </div>
   `;
 
+  app.querySelectorAll('.info-btn[data-sign]').forEach(b =>
+    b.addEventListener('click', () => openSignInfo(b.dataset.sign, b)));
+
   const resendBtn = document.getElementById('resendLink');
   if (resendBtn) resendBtn.addEventListener('click', (e) => {
     e.preventDefault();
+    if (sending) return;
     const label = document.getElementById('resendLabel');
-    label.textContent = 'Sending...';
+    if (resendCount >= 2) { label.textContent = 'Please email us instead'; return; }
+    if (RECAPTCHA_SITE_KEY) {            // each send needs a fresh "I'm not a robot" tick
+      renderContactForm(true); showStep(); window.scrollTo({top:0, behavior:'smooth'});
+      return;
+    }
+    resendCount++;
+    resendBtn.setAttribute('aria-disabled', 'true');
+    label.textContent = 'Sending…';
     sendReportEmail()
       .then(() => {
         lastEmailStatus = 'success';
@@ -1064,12 +864,14 @@ function renderResults(mode = 'emailed'){
       .catch(() => {
         lastEmailStatus = 'error';
         label.textContent = 'Failed — try again';
+        resendBtn.removeAttribute('aria-disabled');
       });
   });
 
   const emailReportBtn = document.getElementById('emailReportBtn');
   if (emailReportBtn) emailReportBtn.addEventListener('click', () => {
     renderContactForm(true);
+    showStep();
     window.scrollTo({top:0, behavior:'smooth'});
   });
 
@@ -1080,12 +882,79 @@ function renderResults(mode = 'emailed'){
     Object.keys(formDraft).forEach(k => formDraft[k] = (k === 'consent' ? false : ''));
     Object.keys(answers).forEach(k => delete answers[k]);
     Object.keys(contactInfo).forEach(k => delete contactInfo[k]);
+    resendCount = 0;
+    clearProgress();
     renderSection();
+    showStep();
     window.scrollTo({top:0, behavior:'smooth'});
   });
 }
 
-renderSection();
+/* ============================================================
+   KEEP PROGRESS (refresh and the browser Back button)
+   ------------------------------------------------------------
+   Answers and the current step are kept in sessionStorage for
+   this browser tab only; they're cleared when the tab closes or
+   the parent presses "Start over". Names and email are NOT
+   stored. Each step is a browser history entry, so Back goes to
+   the previous section instead of leaving the checker.
+   ============================================================ */
+const PROGRESS_KEY = 'myo-checker-progress';
+let view = { step:'section', section:0 };
+let restoring = false;
+
+function viewHash(v){
+  if (v.step === 'section') return '#section-' + (v.section + 1);
+  if (v.step === 'form') return v.fromResults ? '#email-report' : '#your-details';
+  return '#results';
+}
+function sameView(a, b){
+  return a && b && a.step === b.step && a.section === b.section && a.mode === b.mode && !!a.fromResults === !!b.fromResults;
+}
+function recordView(v){
+  view = v;
+  try { sessionStorage.setItem(PROGRESS_KEY, JSON.stringify({ answers, view: v, at: Date.now() })); } catch(e) {}
+  try {
+    if (restoring || sameView(history.state, v)) history.replaceState(v, '', viewHash(v));
+    else history.pushState(v, '', viewHash(v));
+  } catch(e) {}
+}
+function clearProgress(){ try { sessionStorage.removeItem(PROGRESS_KEY); } catch(e) {} }
+
+// wrap the three screens so every visit is recorded
+const _renderSection = renderSection;
+renderSection = function(){ _renderSection(); recordView({ step:'section', section: currentSection }); };
+const _renderContactForm = renderContactForm;
+renderContactForm = function(fromResults = false){ _renderContactForm(fromResults); recordView({ step:'form', fromResults: !!fromResults }); };
+const _renderResults = renderResults;
+renderResults = function(mode = 'emailed'){
+  if (mode === 'emailed' && !contactInfo.email) mode = 'skipped';   // e.g. after a refresh: details aren't kept
+  _renderResults(mode); recordView({ step:'results', mode });
+};
+
+function showView(v){
+  restoring = true;
+  try {
+    if (!v || v.step === 'section') { currentSection = Math.min(Math.max((v && v.section) || 0, 0), sections.length - 1); renderSection(); }
+    else if (v.step === 'form') renderContactForm(!!v.fromResults);
+    else renderResults(v.mode || 'skipped');
+  } finally { restoring = false; }
+  showStep();
+  if (window.MYO.overlay) { const p = document.getElementById('infoPanel'); if (window.MYO.overlay.isOpen(p)) window.MYO.overlay.close(p); }
+}
+
+window.addEventListener('popstate', e => { if (e.state && e.state.step) { showView(e.state); window.scrollTo(0, 0); } });
+
+(function start(){
+  let saved = null;
+  try { saved = JSON.parse(sessionStorage.getItem(PROGRESS_KEY) || 'null'); } catch(e) {}
+  if (saved && saved.answers && Object.keys(saved.answers).length) {
+    Object.assign(answers, saved.answers);
+    showView(saved.view);
+  } else {
+    showView({ step:'section', section:0 });
+  }
+})();
 </script>
 </body>
 </html>
