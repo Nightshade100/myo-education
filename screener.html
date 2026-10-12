@@ -26,7 +26,9 @@
 .yn-row{clear:both;display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .yn-btn{min-height:48px;border-radius:6px;border:1px solid var(--control);background:var(--surface);font-weight:600;font-size:16px;cursor:pointer;color:var(--ink);transition:background-color .15s ease,border-color .15s ease,color .15s ease}
 .yn-btn:hover{border-color:var(--ink)}
-.yn-btn[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+/* selected answer: red if it points to a sign, green if it doesn't */
+.yn-btn.selected.negative{background:#C43C3C;border-color:#C43C3C;color:#fff}
+.yn-btn.selected.positive{background:#27803F;border-color:#27803F;color:#fff}
 
 /* nav */
 .nav-row{display:flex;gap:10px;margin-top:28px}
@@ -358,8 +360,8 @@ function renderSection(){
     fs.innerHTML = `
       <legend>${window.MYO.withInfo(item.q, item.info ? `<button type="button" class="info-btn" aria-label="What to look for">${window.MYO.infoIcon}</button>` : '')}</legend>
       <div class="yn-row">
-        <button type="button" class="yn-btn" data-val="true" aria-pressed="${current === true}">Yes</button>
-        <button type="button" class="yn-btn" data-val="false" aria-pressed="${current === false}">No</button>
+        <button type="button" class="yn-btn ${current === true ? 'selected ' + ((item.neg || 'yes') === 'yes' ? 'negative' : 'positive') : ''}" data-val="true" aria-pressed="${current === true}">Yes</button>
+        <button type="button" class="yn-btn ${current === false ? 'selected ' + ((item.neg || 'yes') === 'no' ? 'negative' : 'positive') : ''}" data-val="false" aria-pressed="${current === false}">No</button>
       </div>
     `;
     fs.querySelectorAll('.yn-btn').forEach(btn => {
