@@ -1,0 +1,105 @@
+<!-- ============================================================
+     EMAILJS TEMPLATE (symptom checker summary)
+     Paste into your template's Content field (Code view </>),
+     replacing everything that's there.
+
+     SUBJECT:   {{child_name}}'s symptom checker summary — MYO Education
+     TO EMAIL:  {{to_email}}        <- the parent's email from the form
+     BCC:       {{clinic_email}}    <- so your team gets a copy
+     REPLY TO:  {{clinic_email}}
+
+     IMPORTANT — SECURITY
+     Every variable uses TWO braces, e.g. {{symptoms_list}}. Two braces
+     make EmailJS show the text exactly as typed, so nobody can slip
+     their own links or HTML into an email sent from your account.
+     Never use three braces {{{ }}} in this template.
+
+     ALSO DO THESE IN THE EMAILJS DASHBOARD
+     1. Template -> Settings -> tick "Enable reCAPTCHA V2 verification"
+        and paste your reCAPTCHA SECRET key (see screener.html).
+     2. Account -> Security -> "Allowed origins": add your site's
+        address only (e.g. https://yourname.github.io).
+     3. Account -> Security -> rate limit: allow at most 1 request
+        every 10 seconds (or the strictest option offered).
+     ============================================================ -->
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#FAF8F4; padding:32px 0; font-family:Arial, Helvetica, sans-serif;">
+  <tr>
+    <td align="center">
+      <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="background-color:#ffffff; border:1px solid #E5E0D6; border-radius:10px; overflow:hidden; max-width:600px; width:100%;">
+
+        <tr>
+          <td style="padding:22px 32px; border-bottom:1px solid #E5E0D6;">
+            <span style="font-family:Georgia, 'Times New Roman', serif; font-size:20px; color:#1F2A24;">MYO Education</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td style="padding:28px 32px 4px;">
+            <p style="margin:0 0 6px; font-size:12px; font-weight:bold; letter-spacing:1px; text-transform:uppercase; color:#3D6B57;">Symptom checker summary</p>
+            <h1 style="margin:0; font-size:24px; font-weight:normal; color:#1F2A24; font-family:Georgia, 'Times New Roman', serif;">{{child_name}}'s summary</h1>
+            <p style="margin:8px 0 0; font-size:13px; color:#56625B;">Completed by {{parent_name}} on {{submitted_at}}</p>
+          </td>
+        </tr>
+
+        <!-- Recommendation -->
+        <tr>
+          <td style="padding:20px 32px;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#E2ECE5; border-radius:8px;">
+              <tr>
+                <td style="padding:16px 18px;">
+                  <p style="margin:0 0 6px; font-size:12px; font-weight:bold; letter-spacing:1px; text-transform:uppercase; color:#3D6B57;">Our recommendation</p>
+                  <p style="margin:0; font-size:14px; line-height:1.6; color:#1F2A24;">{{recommendation}}</p>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- Signs noticed -->
+        <tr>
+          <td style="padding:0 32px 8px;">
+            <h2 style="font-size:16px; font-weight:normal; color:#1F2A24; margin:0 0 10px; font-family:Georgia, 'Times New Roman', serif;">Signs you noticed ({{symptom_count}})</h2>
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#FAF8F4; border:1px solid #EFEBE3; border-radius:8px;">
+              <tr>
+                <td style="padding:14px 16px; font-size:14px; line-height:1.7; color:#3A463F; white-space:pre-line;">{{symptoms_list}}</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- Main concern -->
+        <tr>
+          <td style="padding:20px 32px 8px;">
+            <h2 style="font-size:16px; font-weight:normal; color:#1F2A24; margin:0 0 10px; font-family:Georgia, 'Times New Roman', serif;">Main concern</h2>
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#FAF8F4; border:1px solid #EFEBE3; border-radius:8px;">
+              <tr>
+                <td style="padding:14px 16px; font-size:14px; line-height:1.6; color:#3A463F; white-space:pre-line;">{{main_concern}}</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- Details -->
+        <tr>
+          <td style="padding:20px 32px 8px;">
+            <h2 style="font-size:16px; font-weight:normal; color:#1F2A24; margin:0 0 12px; font-family:Georgia, 'Times New Roman', serif;">Details submitted</h2>
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="font-size:14px; color:#1F2A24;">
+              <tr><td style="padding:5px 0; width:40%; color:#56625B;">Parent / guardian</td><td style="padding:5px 0; font-weight:bold;">{{parent_name}}</td></tr>
+              <tr><td style="padding:5px 0; color:#56625B;">Child's name</td><td style="padding:5px 0; font-weight:bold;">{{child_name}}</td></tr>
+              <tr><td style="padding:5px 0; color:#56625B;">Child's age</td><td style="padding:5px 0; font-weight:bold;">{{child_age}}</td></tr>
+              <tr><td style="padding:5px 0; color:#56625B;">Email</td><td style="padding:5px 0; font-weight:bold;">{{parent_email}}</td></tr>
+            </table>
+          </td>
+        </tr>
+
+        <tr>
+          <td style="padding:28px 32px 32px;">
+            <p style="margin:0 0 8px; font-size:12px; color:#646E68; line-height:1.6;">This summary was generated by the MYO Education orofacial symptom checker (O.A.S). It is not a diagnosis — a diagnosis can only be made after a clinical examination. Questions? Reply to this email.</p>
+            <p style="margin:0; font-size:12px; color:#646E68; line-height:1.6;">You're receiving this because you asked for it on our website. A copy was also sent to the MYO Education team. To ask us to delete your details, reply to this email.</p>
+          </td>
+        </tr>
+
+      </table>
+    </td>
+  </tr>
+</table>

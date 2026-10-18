@@ -39,41 +39,12 @@
 .nav-next:disabled{background:#B9C9BF;cursor:not-allowed}
 .nav-hint{margin:10px 0 0;font-size:14px;color:var(--muted);text-align:center}
 
-/* contact form */
-.contact-card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:32px clamp(20px,4vw,40px)}
-.contact-card h1{margin:0 0 8px;font-family:var(--serif);font-weight:500;font-size:30px;line-height:1.15}
-.contact-card .sub{margin:0 0 28px;font-size:16px;line-height:1.6;color:var(--body)}
-.contact-icon{display:none}
-.field-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px 16px;margin-bottom:18px}
-@media (max-width:520px){ .field-grid{grid-template-columns:1fr} }
 .field label,.concern-label{display:block;font-size:14px;font-weight:600;margin-bottom:6px}
 .field label .req{color:var(--error)}
 .field input,.concern-field textarea{width:100%;min-height:48px;border:1px solid var(--control);border-radius:6px;padding:12px 14px;font-size:16px;font-family:inherit;color:var(--ink);background:var(--surface);transition:border-color .15s ease,box-shadow .15s ease}
 .field input:focus,.concern-field textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(61,107,87,.18)}
 .field input.invalid{border-color:var(--error)}
-#emailHint{min-height:24px}
-.field-hint{font-size:13.5px;line-height:1.5;margin:6px 0 0;color:#7A5A00}
-.field-hint.error{color:var(--error)}
-.hint-btn{background:none;border:0;padding:0;font:inherit;font-weight:600;color:var(--accent);text-decoration:underline;cursor:pointer}
-.concern-field{margin-bottom:18px}
-.concern-label{display:flex;align-items:center}
-.concern-label svg{display:none}
 .optional-tag{font-weight:400;color:var(--muted);margin-left:4px}
-.concern-field textarea{min-height:96px;resize:vertical}
-.concern-field textarea::placeholder,.field input::placeholder{color:#8C958F}
-.consent-row{display:flex;align-items:flex-start;gap:12px;background:var(--bg);border:1px solid var(--line-soft);border-radius:6px;padding:14px 16px;font-size:14.5px;color:var(--body);line-height:1.55;margin-bottom:20px}
-.consent-row input{width:18px;height:18px;margin:2px 0 0;flex:none;accent-color:var(--accent)}
-.privacy-note{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:14px 16px 12px;margin:4px 0 14px;font-size:14.5px;line-height:1.55;color:var(--body)}
-.privacy-note .privacy-title{margin:0 0 6px;font-weight:600;color:var(--ink)}
-.privacy-note ul{margin:0 0 8px;padding-left:18px}
-.privacy-note li{margin-bottom:4px}
-.privacy-note .privacy-more{margin:0}
-.consent-row + .consent-row{margin-top:-10px}
-.recaptcha-box:not(:empty){margin:0 0 18px}
-.form-error{color:var(--error);font-size:14px;font-weight:600;margin:-6px 0 16px}
-.skip-row{margin-top:20px;padding-top:16px;border-top:1px solid var(--line);text-align:center}
-.skip-btn{background:none;border:0;padding:6px 4px;min-height:44px;font:inherit;font-size:15px;font-weight:600;color:var(--accent);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
-.skip-note{font-size:13.5px;color:var(--muted);margin:2px 0 0}
 
 /* results */
 .results-head h1{margin:0 0 10px;font-family:var(--serif);font-weight:500;font-size:clamp(30px,4.5vw,38px);line-height:1.12;letter-spacing:-.01em}
@@ -94,12 +65,6 @@
 .next-desc b{color:var(--ink)}
 .next-buttons{display:flex;flex-wrap:wrap;gap:10px}
 .next-buttons .btn{flex:1 1 auto}
-.report-row{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap}
-.report-title{font-size:15px;font-weight:600;margin:0 0 2px}
-.report-email{font-size:15px;color:var(--body);word-break:break-all;margin:0}
-.resend-link{display:inline-flex;align-items:center;gap:6px;min-height:44px;font-size:14px;font-weight:600;color:var(--accent);text-decoration:none;white-space:nowrap}
-.resend-link:hover{text-decoration:underline}
-.report-desc{font-size:14px;color:var(--muted);line-height:1.6;margin:10px 0 0}
 .restart-row{text-align:center;margin-top:20px}
 .restart-link{display:inline-flex;align-items:center;min-height:44px;font-size:15px;font-weight:600;color:var(--accent);text-decoration:underline;text-underline-offset:3px}
 .section-heading{margin:0 0 12px;font-family:var(--serif);font-weight:500;font-size:24px}
@@ -108,9 +73,12 @@
 #app.fade-in{animation:stepIn .22s ease}
 @keyframes stepIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 
-.contact-card .nav-next{width:100%}
+.pdf-fields{display:grid;grid-template-columns:2fr 1fr;gap:12px 16px;margin:0 0 18px}
+@media (max-width:480px){ .pdf-fields{grid-template-columns:1fr} }
+.pdf-status{min-height:1.5em;margin:10px 0 0;font-size:14px;color:var(--accent);font-weight:600}
+.privacy-line{margin:6px 0 0;font-size:13.5px;color:var(--muted)}
+@media print{ .site-header,.site-footer,.no-print,.info-btn,.panel{display:none !important} body{background:#fff} .wrap{padding:0} }
 </style>
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 <body>
 
@@ -142,66 +110,10 @@
 <script src="signs.js"></script>
 <script>
 /* ============================================================
-   EMAILJS CONFIG — replace these 3 placeholders with your own
-   ------------------------------------------------------------
-   1. Create a free account at https://www.emailjs.com
-   2. Add an Email Service (Gmail, Outlook, etc.) -> copy its
-      Service ID below
-   3. Create an Email Template with variables matching the
-      templateParams object in sendReportEmail() below -> copy
-      its Template ID
-   4. Go to Account -> General -> copy your Public Key
-   ============================================================ */
-const EMAILJS_PUBLIC_KEY  = "rYl0BZayZUBiapZgQ";
-const EMAILJS_SERVICE_ID  = "service_ocpndqe";
-const EMAILJS_TEMPLATE_ID = "template_6q6ys4f";
-const CLINIC_EMAIL = "myoscreening@gmail.com";
-
-/* ============================================================
-   reCAPTCHA (stops people using your EmailJS keys directly)
-   ------------------------------------------------------------
-   1. Go to https://www.google.com/recaptcha/admin and register
-      a new site: type "reCAPTCHA v2" -> "I'm not a robot" checkbox.
-      Add your site's domain (e.g. yourname.github.io).
-   2. Paste the SITE key below.
-   3. In EmailJS: Email Templates -> your template -> Settings ->
-      tick "Enable reCAPTCHA V2 verification" and paste the
-      SECRET key there.
-   Leave the site key empty ("") to switch the checkbox off.
-   ============================================================ */
-const RECAPTCHA_SITE_KEY = "6LeFOustAAAAAIYJYFw-FnnpTEmlzPVhfye9NfNL";
-
-if (typeof emailjs !== 'undefined') {
-  emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
-}
-
-let recaptchaWidget = null;
-function mountRecaptcha(){
-  const box = document.getElementById('recaptchaBox');
-  if (!RECAPTCHA_SITE_KEY || !box) return;
-  if (window.grecaptcha && window.grecaptcha.render) {
-    recaptchaWidget = window.grecaptcha.render(box, { sitekey: RECAPTCHA_SITE_KEY });
-  } else {
-    window.__mountRecaptcha = mountRecaptcha;   // runs when Google's script finishes loading
-  }
-}
-window.onRecaptchaLoad = () => { if (window.__mountRecaptcha) window.__mountRecaptcha(); };
-if (RECAPTCHA_SITE_KEY) {
-  const s = document.createElement('script');
-  s.src = 'https://www.google.com/recaptcha/api.js?onload=onRecaptchaLoad&render=explicit';
-  s.async = true; s.defer = true;
-  document.head.appendChild(s);
-}
-function recaptchaToken(){
-  if (!RECAPTCHA_SITE_KEY) return null;
-  try { return window.grecaptcha ? window.grecaptcha.getResponse(recaptchaWidget) : ''; } catch(e) { return ''; }
-}
-
-/* ============================================================
    QUESTIONS
    ------------------------------------------------------------
    q     = the question shown to the parent
-   label = the short wording shown on the summary page and email
+   label = the short wording shown on the summary page and PDF
    neg   = (optional) which answer counts as "noticed". Defaults to
            "yes". Set neg:"no" on a question where answering No is
            the concerning answer.
@@ -390,7 +302,7 @@ function renderSection(){
       currentSection++;
       renderSection();
     } else {
-      renderContactForm();
+      renderResults();
     }
     showStep();
     window.scrollTo({top:0, behavior:'smooth'});
@@ -436,16 +348,16 @@ function openSignInfo(signId, opener){
   `, opener);
 }
 
-const contactInfo = {};
-
-function esc(str){
-  return String(str).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-}
+/* ============================================================
+   RESULTS
+   ------------------------------------------------------------
+   Nothing is sent or saved. Answers live only in this page's
+   memory and disappear when the tab is closed or refreshed.
+   ============================================================ */
+const esc = window.MYO.esc;
 
 /* ---------- name formatting ----------
-   "SARAH o'brien-SMITH" -> "Sarah O'Brien-Smith"
-   Words typed in deliberate mixed case that already start with a
-   capital (e.g. "McDonald", "DeVries") are left as typed. */
+   "SARAH o'brien-SMITH" -> "Sarah O'Brien-Smith" */
 function formatName(raw){
   return raw.trim().replace(/\s+/g, ' ').split(' ').map(word =>
     word.split(/([-'’])/).map(part => {
@@ -457,251 +369,6 @@ function formatName(raw){
   ).join(' ');
 }
 
-/* ---------- email checking ---------- */
-const COMMON_DOMAINS = ['gmail.com','outlook.com','hotmail.com','live.com','yahoo.com','icloud.com','me.com',
-  'bigpond.com','bigpond.net.au','optusnet.com.au','live.com.au','hotmail.com.au','outlook.com.au','yahoo.com.au',
-  'tpg.com.au','iinet.net.au','internode.on.net','westnet.com.au','aapt.net.au'];
-
-function editDistance(a, b){
-  const d = Array.from({length:a.length+1}, (_, i) => [i, ...Array(b.length).fill(0)]);
-  for (let j = 1; j <= b.length; j++) d[0][j] = j;
-  for (let i = 1; i <= a.length; i++)
-    for (let j = 1; j <= b.length; j++)
-      d[i][j] = Math.min(d[i-1][j]+1, d[i][j-1]+1, d[i-1][j-1] + (a[i-1] === b[j-1] ? 0 : 1));
-  return d[a.length][b.length];
-}
-
-// Returns { ok:false, msg } if the address can't be right,
-// { ok:true, suggestion } if it looks like a typo of a common provider,
-// or { ok:true } if it looks fine.
-function checkEmail(raw){
-  const email = raw.trim().toLowerCase();
-  if (!email) return { ok:false, msg:'Please enter your email address.' };
-  if (/\s/.test(email)) return { ok:false, msg:'Your email address can\'t contain spaces.' };
-  const at = email.split('@');
-  if (at.length !== 2) return { ok:false, msg:'Your email address needs exactly one "@" sign.' };
-  const [local, domain] = at;
-  if (!local || !/^[a-z0-9.!#$%&'*+/=?^_`{|}~-]+$/.test(local) || /^\.|\.$|\.\./.test(local))
-    return { ok:false, msg:'Please check the part of your email before the "@".' };
-  // fix common ending typos first: .con -> .com, .com.a -> .com.au
-  let fixed = domain
-    .replace(/\.(con|cmo|ocm|vom|xom|comm|cpm)$/, '.com')
-    .replace(/\.com\.(a|aus|ua)$/, '.com.au')
-    .replace(/\.net\.(a|aus|ua)$/, '.net.au');
-  if (!COMMON_DOMAINS.includes(fixed)) {
-    let best = null, bestDist = 3;
-    for (const d of COMMON_DOMAINS) {
-      const dist = editDistance(fixed, d);
-      if (dist < bestDist) { best = d; bestDist = dist; }
-    }
-    if (best && bestDist <= 2 && fixed.length > 5) fixed = best;
-  }
-  const validDomain = d => /^([a-z0-9]([a-z0-9-]*[a-z0-9])?\.)+[a-z]{2,}$/.test(d);
-  if (!validDomain(fixed))
-    return { ok:false, msg:'Please check the part of your email after the "@" (e.g. gmail.com).' };
-  if (fixed !== domain) return { ok:true, email, suggestion: local + '@' + fixed };
-  return { ok:true, email };
-}
-
-// what the parent has typed so far, kept if they skip and come back
-const formDraft = { parentName:'', childName:'', childAge:'', email:'', concern:'', consent:false, share:false };
-function saveDraft(){
-  const v = id => (document.getElementById(id) || {}).value || '';
-  Object.assign(formDraft, {
-    parentName: v('f-parentName'), childName: v('f-childName'), childAge: v('f-childAge'),
-    email: v('f-email'), concern: v('f-concern'),
-    consent: !!(document.getElementById('f-consent') || {}).checked,
-    share: !!(document.getElementById('f-share') || {}).checked
-  });
-}
-
-// fromResults = true when the parent skipped, saw their results, then chose "Email this report"
-function renderContactForm(fromResults = false){
-  app.innerHTML = `
-    <div class="contact-card">
-      <div class="contact-icon">
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#3D6B57" stroke-width="2"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 3h6v2H9z"/><path d="M8 10h8M8 14h8M8 18h5"/></svg>
-      </div>
-      <h1>${fromResults ? 'Email this report' : 'Almost there'}</h1>
-      <p class="sub">${fromResults
-        ? 'Enter your details and we\'ll email a copy of your summary so you can take it to your appointment.'
-        : 'You\'ve answered all the questions. Add your details to have your summary emailed to you, or skip this step to see your results without sending anything.'}</p>
-
-      <div class="field-grid">
-        <div class="field">
-          <label for="f-parentName">Your name <span class="req" aria-hidden="true">*</span></label>
-          <input type="text" id="f-parentName" placeholder="Parent / guardian name" autocomplete="name" autocapitalize="words" maxlength="80" required />
-        </div>
-        <div class="field">
-          <label for="f-childName">Child's first name <span class="req" aria-hidden="true">*</span></label>
-          <input type="text" id="f-childName" placeholder="e.g. Sam" autocomplete="off" autocapitalize="words" maxlength="60" required />
-        </div>
-        <div class="field">
-          <label for="f-childAge">Child's age <span class="req" aria-hidden="true">*</span></label>
-          <input type="number" id="f-childAge" placeholder="e.g. 8" min="4" max="17" inputmode="numeric" required />
-        </div>
-        <div class="field">
-          <label for="f-email">Your email <span class="req" aria-hidden="true">*</span></label>
-          <input type="email" id="f-email" placeholder="your@email.com" autocomplete="email" maxlength="120" required aria-describedby="emailHint" />
-          <div id="emailHint"></div>
-        </div>
-      </div>
-
-      <div class="field-full concern-field">
-        <label class="concern-label" for="f-concern">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3D6B57" stroke-width="2" style="vertical-align:middle;margin-right:6px;"><path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5c-1.4 0-2.7-.3-3.9-.9L3 20l1-4.9A8.5 8.5 0 1 1 21 11.5z"/></svg>
-          Main concern <span class="optional-tag">(optional)</span>
-        </label>
-        <textarea id="f-concern" maxlength="1000" placeholder="e.g. My child snores loudly and seems tired all the time..."></textarea>
-      </div>
-
-      <div class="privacy-note" id="privacyNote">
-        <p class="privacy-title">Who receives this</p>
-        <ul>
-          <li>We'll email this summary, with the details above and your answers, to the address you enter.</li>
-          <li>A copy also goes to the MYO Education team at ${CLINIC_EMAIL}, so we can answer any questions you have.</li>        </ul>
-        <p class="privacy-more">Read our <a href="privacy.html" target="_blank" rel="noopener">privacy policy</a>. Rather not share anything? Use <b>Skip for now</b> below and nothing is sent.</p>
-      </div>
-
-      <div class="consent-row">
-        <input type="checkbox" id="f-consent" />
-        <label for="f-consent">I understand this is a symptom checker only and not a diagnosis. A full assessment can only be provided after a clinical consultation.</label>
-      </div>
-      <div class="consent-row">
-        <input type="checkbox" id="f-share" />
-        <label for="f-share">I agree to my details and my child's answers being emailed to me and to the MYO Education team, as described above.</label>
-      </div>
-
-      <div id="recaptchaBox" class="recaptcha-box"></div>
-
-      <div id="formError" role="alert"></div>
-
-      <button class="nav-next" id="submitBtn">${fromResults ? 'Email my report' : 'Get my results &amp; report'}</button>
-
-      <div class="skip-row">
-        ${fromResults
-          ? `<button type="button" class="skip-btn" id="skipBtn">← Back to my results</button>`
-          : `<button type="button" class="skip-btn" id="skipBtn">Skip for now — just show my results</button>
-             <p class="skip-note">Nothing will be emailed. You can still email the report afterwards.</p>`}
-      </div>
-    </div>
-  `;
-
-  // refill anything typed earlier
-  document.getElementById('f-parentName').value = formDraft.parentName;
-  document.getElementById('f-childName').value = formDraft.childName;
-  document.getElementById('f-childAge').value = formDraft.childAge;
-  document.getElementById('f-email').value = formDraft.email;
-  document.getElementById('f-concern').value = formDraft.concern;
-  document.getElementById('f-consent').checked = formDraft.consent;
-  document.getElementById('f-share').checked = formDraft.share;
-  mountRecaptcha();
-  // keep what's typed if the parent leaves this step with the browser's Back button
-  app.querySelector('.contact-card').addEventListener('input', saveDraft);
-  app.querySelector('.contact-card').addEventListener('change', saveDraft);
-
-  document.getElementById('skipBtn').addEventListener('click', () => {
-    saveDraft();
-    renderResults('skipped');
-    showStep();
-    window.scrollTo({top:0, behavior:'smooth'});
-  });
-
-  const parentInput = document.getElementById('f-parentName');
-  const childInput  = document.getElementById('f-childName');
-  const emailInput  = document.getElementById('f-email');
-  const emailHint   = document.getElementById('emailHint');
-  let suggestionShownFor = null;   // lets a parent keep an unusual-but-real address on a second click
-
-  // tidy names as soon as the parent leaves the box
-  [parentInput, childInput].forEach(inp =>
-    inp.addEventListener('blur', () => { inp.value = formatName(inp.value); }));
-
-  function showEmailCheck(result){
-    emailInput.classList.toggle('invalid', !result.ok);
-    if (!result.ok) {
-      emailHint.innerHTML = `<p class="field-hint error">${esc(result.msg)}</p>`;
-    } else if (result.suggestion) {
-      emailHint.innerHTML = `<p class="field-hint">Did you mean <b>${esc(result.suggestion)}</b>? <button type="button" class="hint-btn" id="useSuggestion">Yes, fix it</button></p>`;
-      document.getElementById('useSuggestion').addEventListener('click', () => {
-        emailInput.value = result.suggestion;
-        emailHint.innerHTML = '';
-        emailInput.classList.remove('invalid');
-      });
-    } else {
-      emailHint.innerHTML = '';
-    }
-  }
-  emailInput.addEventListener('blur', () => { if (emailInput.value.trim()) showEmailCheck(checkEmail(emailInput.value)); });
-  emailInput.addEventListener('input', () => { emailInput.classList.remove('invalid'); emailHint.innerHTML = ''; });
-
-  document.getElementById('submitBtn').addEventListener('click', () => {
-    parentInput.value = formatName(parentInput.value);
-    childInput.value = formatName(childInput.value);
-    const parentName = parentInput.value;
-    const childName = childInput.value;
-    const childAge = document.getElementById('f-childAge').value.trim();
-    const email = emailInput.value.trim();
-    const concern = document.getElementById('f-concern').value.trim();
-    const consent = document.getElementById('f-consent').checked;
-
-    const errorEl = document.getElementById('formError');
-
-    if (!parentName || !childName || !childAge || !email) {
-      errorEl.innerHTML = `<p class="form-error">Please fill in all required fields.</p>`;
-      return;
-    }
-    const ageNum = Number(childAge);
-    if (!Number.isInteger(ageNum) || ageNum < 4 || ageNum > 17) {
-      errorEl.innerHTML = `<p class="form-error">This symptom checker is designed for children aged 4–17. Please enter an age in that range.</p>`;
-      return;
-    }
-    const emailCheck = checkEmail(email);
-    if (!emailCheck.ok) {
-      showEmailCheck(emailCheck);
-      errorEl.innerHTML = `<p class="form-error">Please check your email address so we can send your summary.</p>`;
-      emailInput.focus();
-      return;
-    }
-    if (emailCheck.suggestion && suggestionShownFor !== emailCheck.email) {
-      suggestionShownFor = emailCheck.email;
-      showEmailCheck(emailCheck);
-      errorEl.innerHTML = `<p class="form-error">Please double-check your email address. If it's correct, press the button again.</p>`;
-      return;
-    }
-    emailInput.value = emailCheck.email;
-    if (!consent) {
-      errorEl.innerHTML = `<p class="form-error">Please confirm you understand this is a symptom checker, not a diagnosis.</p>`;
-      return;
-    }
-    if (!document.getElementById('f-share').checked) {
-      errorEl.innerHTML = `<p class="form-error">To email your summary we need your agreement to send it to you and to our team. If you'd rather not, use “Skip for now” to see your results without sending anything.</p>`;
-      return;
-    }
-    const token = recaptchaToken();
-    if (token === '') {
-      errorEl.innerHTML = `<p class="form-error">Please tick “I'm not a robot” before sending.</p>`;
-      return;
-    }
-
-    Object.assign(contactInfo, { parentName, childName, childAge, email: emailCheck.email, concern });
-    saveDraft();
-
-    const submitBtn = document.getElementById('submitBtn');
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Sending your report…';
-
-    sendReportEmail(token)
-      .then(() => { lastEmailStatus = 'success'; resendCount = 0; })
-      .catch(() => { lastEmailStatus = 'error'; })
-      .finally(() => {
-        renderResults('emailed');
-        showStep();
-        window.scrollTo({top:0, behavior:'smooth'});
-      });
-  });
-}
-
 function isNoticed(item, val){
   const concerning = (item.neg || 'yes') === 'yes';
   return concerning ? val === true : val === false;
@@ -710,73 +377,22 @@ function isNoticed(item, val){
 function computeResults(){
   const bySection = sections.map((s, si) => ({
     title: s.title,
-    icon: s.icon,
-    items: s.questions
-      .filter((item, qi) => isNoticed(item, answers[questionKey(si, qi)]))
-      .map(item => item.label || item.q)
+    items: s.questions.filter((item, qi) => isNoticed(item, answers[questionKey(si, qi)]))
   })).filter(sec => sec.items.length > 0);
   const total = bySection.reduce((n, sec) => n + sec.items.length, 0);
   return { bySection, total };
 }
 
-// Plain text only. The email template shows it with {{symptoms_list}} (two braces),
-// so EmailJS escapes it and nobody can slip their own HTML into an email.
-function buildSymptomsText(bySection){
-  if (!bySection.length) return 'No signs were reported.';
-  return bySection.map(sec => sec.title.toUpperCase() + '\n' + sec.items.map(i => '•  ' + i).join('\n')).join('\n\n');
-}
-
+const TOTAL_QUESTIONS = sections.reduce((n, s) => n + s.questions.length, 0);
 const RECOMMENDATION = "We recommend booking an appointment with your GP or a qualified health practitioner to talk through these signs. Bring this summary with you — it will help them understand what you've noticed.";
 const RECOMMENDATION_NONE = "You didn't report any of the signs we asked about. If you still have concerns about your child's breathing, sleep or development, it's always worth speaking with your GP or a qualified health practitioner.";
 
-let lastEmailStatus = null; // 'success' | 'error' | null
+// only used to label the PDF; kept in memory, never sent or saved
+const pdfLabel = { childName: '', childAge: '' };
 
-let resendCount = 0;
-let sending = false;
-
-function sendReportEmail(token){
-  if (typeof emailjs === 'undefined' || EMAILJS_PUBLIC_KEY === "YOUR_PUBLIC_KEY") {
-    return Promise.reject(new Error('EmailJS not configured'));
-  }
+function renderResults(){
   const r = computeResults();
-  const templateParams = {
-    to_email: contactInfo.email || CLINIC_EMAIL,   // the parent who filled in the form
-    clinic_email: CLINIC_EMAIL,                    // put {{clinic_email}} in the template's Bcc field
-    parent_name: contactInfo.parentName || '',
-    child_name: contactInfo.childName || '',
-    child_age: contactInfo.childAge || '',
-    parent_email: contactInfo.email || '',
-    main_concern: contactInfo.concern || '(not provided)',
-    symptom_count: r.total,
-    symptoms_list: buildSymptomsText(r.bySection),   // use {{symptoms_list}} (two braces) in the template
-    recommendation: r.total ? RECOMMENDATION : RECOMMENDATION_NONE,
-    submitted_at: new Date().toLocaleString('en-AU', { dateStyle:'long', timeStyle:'short' }),
-  };
-  if (token) templateParams['g-recaptcha-response'] = token;
-  sending = true;
-  return emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
-    .finally(() => {
-      sending = false;
-      if (RECAPTCHA_SITE_KEY && window.grecaptcha) { try { window.grecaptcha.reset(recaptchaWidget); } catch(e) {} }
-    });
-}
-
-
-// mode: 'emailed' (details given, email attempted) or 'skipped' (no details, nothing sent)
-function renderResults(mode = 'emailed'){
-  const skipped = mode === 'skipped';
-  const r = computeResults();
-  const email = esc(contactInfo.email || 'your email');
-  const name = skipped ? formatName(formDraft.childName) : contactInfo.childName;
-  const who = name ? esc(name) + "'s" : "Your child's";
-
-  // same sections as the email, plus a link to the matching sign (for the ⓘ button)
-  const rich = sections.map((s, si) => ({
-    title: s.title,
-    items: s.questions.filter((item, qi) => isNoticed(item, answers[questionKey(si, qi)]))
-  })).filter(sec => sec.items.length);
-
-  const symptomsHtml = r.total ? rich.map(sec => `
+  const symptomsHtml = r.total ? r.bySection.map(sec => `
       <div class="sym-sec">
         <p class="sym-sec-title">${sec.title}</p>
         <ul class="sym-list">
@@ -784,14 +400,14 @@ function renderResults(mode = 'emailed'){
             ? `<button type="button" class="info-btn" data-sign="${it.sign}" aria-label="About this sign">${window.MYO.infoIcon}</button>` : '')}</li>`).join('')}
         </ul>
       </div>`).join('')
-    : `<p class="sym-empty">You answered "No" to every question.</p>`;
+    : `<p class="sym-empty">None of your answers point to the signs we asked about.</p>`;
 
-  const mailIcon = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>';
+  const dlIcon = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 4v11"/><path d="M7 10l5 5 5-5"/><path d="M5 20h14"/></svg>';
 
   app.innerHTML = `
     <div class="results-head">
       <p class="kicker">Your summary</p>
-      <h1>${who} symptom checker summary</h1>
+      <h1 tabindex="-1">Your symptom checker summary</h1>
       <p class="summary-sub">${r.total
         ? `You noticed <b>${r.total}</b> of the signs we asked about. They're listed below — tap the ⓘ beside a sign to read more about it.`
         : `You didn't report any of the signs we asked about.`}</p>
@@ -805,158 +421,215 @@ function renderResults(mode = 'emailed'){
     <h2 class="section-heading">Signs you noticed</h2>
     ${symptomsHtml}
 
-    ${skipped ? `
-    <div class="card-block">
-      <h3>Want a copy for your appointment?</h3>
-      <p class="next-desc">Nothing has been emailed yet. If you'd like this summary sent to you, so you can show it to your GP or health practitioner, add your details and we'll email it.</p>
-      <div class="next-buttons">
-        <button type="button" class="btn btn-primary" id="emailReportBtn">${mailIcon}Email this report</button>
-        <a class="btn btn-secondary" href="index.html">Learn about the signs</a>
-      </div>
-    </div>
-    ` : `
-    <div class="card-block">
-      <div class="report-row">
-        <div>
-          <p class="report-title">${lastEmailStatus === 'success' ? 'Summary sent to' : 'Summary not sent'}</p>
-          ${lastEmailStatus === 'success' ? `<p class="report-email">${email}</p>` : `<p class="report-email" style="color:var(--error);">We couldn't send your summary automatically. Please contact us directly.</p>`}
+    <section class="card-block no-print" aria-labelledby="pdfTitle">
+      <h3 id="pdfTitle">Take this to your appointment</h3>
+      <p class="next-desc">Download a PDF of this summary, with all ${TOTAL_QUESTIONS} answers, to show your GP or health practitioner. You can add your child's name and age to the PDF if you like.</p>
+      <div class="pdf-fields">
+        <div class="field">
+          <label for="pdfName">Child's first name <span class="optional-tag">(optional)</span></label>
+          <input type="text" id="pdfName" maxlength="60" autocomplete="off" autocapitalize="words" placeholder="e.g. Sam">
         </div>
-        <a class="resend-link" id="resendLink" href="#" role="button">${mailIcon}<span id="resendLabel">Resend summary</span></a>
+        <div class="field">
+          <label for="pdfAge">Age <span class="optional-tag">(optional)</span></label>
+          <input type="number" id="pdfAge" min="1" max="25" inputmode="numeric" placeholder="e.g. 8">
+        </div>
       </div>
-      <p class="report-desc">${lastEmailStatus === 'success' ? "A copy of this summary has been sent to your email so you can take it to your appointment." : "If this keeps happening, please email us directly using the button below."}</p>
-    </div>
-
-    <div class="card-block">
-      <h3>What happens next?</h3>
-      <p class="next-desc">A copy of your summary has also been shared with our team at <b>myoscreening@gmail.com</b>. If you have questions about any of the signs above, you're welcome to get in touch.</p>
       <div class="next-buttons">
-        <a class="btn btn-primary" href="mailto:myoscreening@gmail.com">${mailIcon}Email us</a>
+        <button type="button" class="btn btn-primary" id="downloadPdf">${dlIcon}Download PDF summary</button>
         <a class="btn btn-secondary" href="index.html">Learn about the signs</a>
       </div>
-    </div>
-    `}
+      <p class="pdf-status" id="pdfStatus" role="status"></p>
+      <p class="privacy-line">Your answers aren't sent anywhere or saved. The PDF is created on your device, and everything is cleared when you close this page.</p>
+    </section>
 
-    <div class="restart-row">
+    <div class="restart-row no-print">
       <a class="restart-link" id="restartLink" href="#" role="button">Start over</a>
     </div>
   `;
 
+  const nameIn = document.getElementById('pdfName');
+  const ageIn = document.getElementById('pdfAge');
+  nameIn.value = pdfLabel.childName; ageIn.value = pdfLabel.childAge;
+  nameIn.addEventListener('input', () => { pdfLabel.childName = nameIn.value; });
+  nameIn.addEventListener('blur', () => { nameIn.value = formatName(nameIn.value); pdfLabel.childName = nameIn.value; });
+  ageIn.addEventListener('input', () => { pdfLabel.childAge = ageIn.value; });
+
   app.querySelectorAll('.info-btn[data-sign]').forEach(b =>
     b.addEventListener('click', () => openSignInfo(b.dataset.sign, b)));
 
-  const resendBtn = document.getElementById('resendLink');
-  if (resendBtn) resendBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    if (sending) return;
-    const label = document.getElementById('resendLabel');
-    if (resendCount >= 2) { label.textContent = 'Please email us instead'; return; }
-    if (RECAPTCHA_SITE_KEY) {            // each send needs a fresh "I'm not a robot" tick
-      renderContactForm(true); showStep(); window.scrollTo({top:0, behavior:'smooth'});
-      return;
-    }
-    resendCount++;
-    resendBtn.setAttribute('aria-disabled', 'true');
-    label.textContent = 'Sending…';
-    sendReportEmail()
-      .then(() => {
-        lastEmailStatus = 'success';
-        label.textContent = 'Sent!';
-        setTimeout(() => renderResults('emailed'), 900);
-      })
-      .catch(() => {
-        lastEmailStatus = 'error';
-        label.textContent = 'Failed — try again';
-        resendBtn.removeAttribute('aria-disabled');
-      });
-  });
-
-  const emailReportBtn = document.getElementById('emailReportBtn');
-  if (emailReportBtn) emailReportBtn.addEventListener('click', () => {
-    renderContactForm(true);
-    showStep();
-    window.scrollTo({top:0, behavior:'smooth'});
+  const dlBtn = document.getElementById('downloadPdf');
+  dlBtn.addEventListener('click', () => {
+    const status = document.getElementById('pdfStatus');
+    dlBtn.disabled = true; status.textContent = 'Creating your PDF…';
+    makePdf()
+      .then(() => { status.textContent = 'Your PDF has been downloaded.'; })
+      .catch(() => { status.textContent = "Sorry, we couldn't create the PDF. You can use your browser's Print option and choose “Save as PDF” instead."; })
+      .finally(() => { dlBtn.disabled = false; });
   });
 
   document.getElementById('restartLink').addEventListener('click', (e) => {
     e.preventDefault();
     currentSection = 0;
-    lastEmailStatus = null;
-    Object.keys(formDraft).forEach(k => formDraft[k] = (k === 'consent' ? false : ''));
     Object.keys(answers).forEach(k => delete answers[k]);
-    Object.keys(contactInfo).forEach(k => delete contactInfo[k]);
-    resendCount = 0;
-    clearProgress();
+    pdfLabel.childName = ''; pdfLabel.childAge = '';
     renderSection();
     showStep();
     window.scrollTo({top:0, behavior:'smooth'});
   });
 }
 
-/* ============================================================
-   KEEP PROGRESS (refresh and the browser Back button)
-   ------------------------------------------------------------
-   Answers and the current step are kept in sessionStorage for
-   this browser tab only; they're cleared when the tab closes or
-   the parent presses "Start over". Names and email are NOT
-   stored. Each step is a browser history entry, so Back goes to
-   the previous section instead of leaving the checker.
-   ============================================================ */
-const PROGRESS_KEY = 'myo-checker-progress';
-let view = { step:'section', section:0 };
-let restoring = false;
+/* ---------- PDF (built in the browser with jsPDF; nothing is uploaded) ---------- */
+let jsPdfLoading = null;
+function loadJsPdf(){
+  if (window.jspdf) return Promise.resolve(window.jspdf);
+  if (!jsPdfLoading) jsPdfLoading = new Promise((resolve, reject) => {
+    const s = document.createElement('script');
+    s.src = 'vendor/jspdf.umd.min.js';
+    s.onload = () => window.jspdf ? resolve(window.jspdf) : reject(new Error('jsPDF missing'));
+    s.onerror = () => { jsPdfLoading = null; reject(new Error('jsPDF failed to load')); };
+    document.head.appendChild(s);
+  });
+  return jsPdfLoading;
+}
 
-function viewHash(v){
-  if (v.step === 'section') return '#section-' + (v.section + 1);
-  if (v.step === 'form') return v.fromResults ? '#email-report' : '#your-details';
-  return '#results';
+function makePdf(){
+  return loadJsPdf().then(({ jsPDF }) => {
+    const r = computeResults();
+    const doc = new jsPDF({ unit: 'mm', format: 'a4' });
+    const W = 210, H = 297, M = 18, CW = W - M * 2;
+    const INK = [31, 42, 36], BODY = [58, 70, 63], MUTED = [100, 110, 104], ACCENT = [61, 107, 87], TINT = [226, 236, 229], LINE = [229, 224, 214];
+    let y = M;
+    const name = formatName(pdfLabel.childName || '');
+    const age = String(pdfLabel.childAge || '').trim();
+    const date = new Date().toLocaleDateString('en-AU', { day:'numeric', month:'long', year:'numeric' });
+
+    const color = c => doc.setTextColor(c[0], c[1], c[2]);
+    const ensure = h => { if (y + h > H - 22) { doc.addPage(); y = M; } };
+    const para = (text, size, c, opts = {}) => {
+      doc.setFont(opts.font || 'helvetica', opts.style || 'normal'); doc.setFontSize(size); color(c);
+      const lines = doc.splitTextToSize(text, opts.width || CW);
+      const lh = size * 0.42;
+      lines.forEach(line => { ensure(lh); doc.text(line, opts.x || M, y + lh * 0.8); y += lh; });
+      return lines.length;
+    };
+
+    // header
+    doc.setFont('times', 'normal'); doc.setFontSize(13); color(INK); doc.text('MYO Education', M, y + 4);
+    doc.setFont('helvetica', 'normal'); doc.setFontSize(9); color(MUTED); doc.text('Orofacial symptom checker (O.A.S)', W - M, y + 4, { align: 'right' });
+    y += 8; doc.setDrawColor(...LINE); doc.line(M, y, W - M, y); y += 9;
+
+    doc.setFont('helvetica', 'bold'); doc.setFontSize(9); color(ACCENT); doc.text('SYMPTOM CHECKER SUMMARY', M, y); y += 7;
+    para(name ? `${name}'s summary` : 'Symptom checker summary', 22, INK, { font: 'times' }); y += 2;
+    const meta = [name ? `Child: ${name}` : null, age ? `Age: ${age}` : null, `Completed: ${date}`].filter(Boolean).join('     ');
+    para(meta, 10, MUTED); y += 6;
+
+    // recommendation box
+    doc.setFont('helvetica', 'normal'); doc.setFontSize(10.5);
+    const recLines = doc.splitTextToSize(r.total ? RECOMMENDATION : RECOMMENDATION_NONE, CW - 12);
+    const boxH = 12 + recLines.length * 4.6;
+    ensure(boxH);
+    doc.setFillColor(...TINT); doc.roundedRect(M, y, CW, boxH, 2, 2, 'F');
+    doc.setFont('helvetica', 'bold'); doc.setFontSize(8.5); color(ACCENT); doc.text('OUR RECOMMENDATION', M + 6, y + 7);
+    doc.setFont('helvetica', 'normal'); doc.setFontSize(10.5); color(INK);
+    recLines.forEach((l, i) => doc.text(l, M + 6, y + 13 + i * 4.6));
+    y += boxH + 9;
+
+    // signs noticed
+    para(`Signs noticed: ${r.total} of ${TOTAL_QUESTIONS} questions`, 15, INK, { font: 'times' }); y += 3;
+    if (!r.total) { para('None of the answers point to the signs asked about.', 10.5, BODY); y += 4; }
+    r.bySection.forEach(sec => {
+      ensure(14);
+      doc.setFont('helvetica', 'bold'); doc.setFontSize(8.5); color(ACCENT); doc.text(sec.title.toUpperCase(), M, y + 3); y += 6;
+      sec.items.forEach(it => {
+        doc.setFont('helvetica', 'normal'); doc.setFontSize(10.5);
+        const lines = doc.splitTextToSize(it.label || it.q, CW - 6);
+        ensure(lines.length * 4.6 + 1);
+        color(ACCENT); doc.text('•', M + 1, y + 3.6);
+        color(INK); lines.forEach((l, i) => doc.text(l, M + 6, y + 3.6 + i * 4.6));
+        y += lines.length * 4.6 + 1.2;
+      });
+      y += 3;
+    });
+
+    // all answers
+    y += 3; ensure(20);
+    doc.setDrawColor(...LINE); doc.line(M, y, W - M, y); y += 8;
+    para('All answers', 15, INK, { font: 'times' }); y += 1;
+    para('Answers marked • point to a sign listed above.', 9, MUTED); y += 3;
+    sections.forEach((s, si) => {
+      ensure(14);
+      doc.setFont('helvetica', 'bold'); doc.setFontSize(8.5); color(ACCENT); doc.text(s.title.toUpperCase(), M, y + 3); y += 6;
+      s.questions.forEach((q, qi) => {
+        const val = answers[questionKey(si, qi)];
+        const ans = val === true ? 'Yes' : val === false ? 'No' : '—';
+        const flagged = isNoticed(q, val);
+        doc.setFont('helvetica', 'normal'); doc.setFontSize(9.5);
+        const lines = doc.splitTextToSize(q.q, CW - 26);
+        const h = lines.length * 4.2 + 2.4;
+        ensure(h);
+        color(BODY); lines.forEach((l, i) => doc.text(l, M, y + 3.4 + i * 4.2));
+        doc.setFont('helvetica', flagged ? 'bold' : 'normal'); color(flagged ? INK : MUTED);
+        doc.text((flagged ? '• ' : '') + ans, W - M, y + 3.4, { align: 'right' });
+        y += h;
+        doc.setDrawColor(239, 235, 227); doc.line(M, y - 1, W - M, y - 1);
+      });
+      y += 4;
+    });
+
+    // footer on every page
+    const pages = doc.getNumberOfPages();
+    for (let i = 1; i <= pages; i++) {
+      doc.setPage(i);
+      doc.setDrawColor(...LINE); doc.line(M, H - 16, W - M, H - 16);
+      doc.setFont('helvetica', 'normal'); doc.setFontSize(7.5); color(MUTED);
+      doc.text('This is a symptom checker summary, not a diagnosis. A diagnosis can only be made after a clinical examination.', M, H - 11);
+      doc.text(`MYO Education · Page ${i} of ${pages}`, W - M, H - 7, { align: 'right' });
+      doc.text(`Created ${date}`, M, H - 7);
+    }
+
+    const slug = (name || 'child').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'child';
+    const iso = new Date().toISOString().slice(0, 10);
+    doc.save(`symptom-checker-summary-${slug}-${iso}.pdf`);
+  });
 }
-function sameView(a, b){
-  return a && b && a.step === b.step && a.section === b.section && a.mode === b.mode && !!a.fromResults === !!b.fromResults;
-}
+
+/* ============================================================
+   BROWSER BACK BUTTON
+   ------------------------------------------------------------
+   Each step is a browser history entry, so Back moves to the
+   previous section instead of leaving the checker. Answers are
+   kept in memory only (nothing is stored), so a refresh starts
+   the checker again.
+   ============================================================ */
+let restoring = false;
+function viewHash(v){ return v.step === 'section' ? '#section-' + (v.section + 1) : '#results'; }
 function recordView(v){
-  view = v;
-  try { sessionStorage.setItem(PROGRESS_KEY, JSON.stringify({ answers, view: v, at: Date.now() })); } catch(e) {}
   try {
-    if (restoring || sameView(history.state, v)) history.replaceState(v, '', viewHash(v));
+    const cur = history.state;
+    const same = cur && cur.step === v.step && cur.section === v.section;
+    if (restoring || same) history.replaceState(v, '', viewHash(v));
     else history.pushState(v, '', viewHash(v));
   } catch(e) {}
 }
-function clearProgress(){ try { sessionStorage.removeItem(PROGRESS_KEY); } catch(e) {} }
-
-// wrap the three screens so every visit is recorded
 const _renderSection = renderSection;
 renderSection = function(){ _renderSection(); recordView({ step:'section', section: currentSection }); };
-const _renderContactForm = renderContactForm;
-renderContactForm = function(fromResults = false){ _renderContactForm(fromResults); recordView({ step:'form', fromResults: !!fromResults }); };
 const _renderResults = renderResults;
-renderResults = function(mode = 'emailed'){
-  if (mode === 'emailed' && !contactInfo.email) mode = 'skipped';   // e.g. after a refresh: details aren't kept
-  _renderResults(mode); recordView({ step:'results', mode });
-};
+renderResults = function(){ _renderResults(); recordView({ step:'results' }); const h = app.querySelector('h1'); if (h) h.focus({ preventScroll:true }); };
 
 function showView(v){
   restoring = true;
   try {
-    if (!v || v.step === 'section') { currentSection = Math.min(Math.max((v && v.section) || 0, 0), sections.length - 1); renderSection(); }
-    else if (v.step === 'form') renderContactForm(!!v.fromResults);
-    else renderResults(v.mode || 'skipped');
+    const anyAnswers = Object.keys(answers).length > 0;
+    if (v && v.step === 'results' && anyAnswers) renderResults();
+    else { currentSection = anyAnswers && v ? Math.min(Math.max(v.section || 0, 0), sections.length - 1) : 0; renderSection(); }
   } finally { restoring = false; }
   showStep();
-  if (window.MYO.overlay) { const p = document.getElementById('infoPanel'); if (window.MYO.overlay.isOpen(p)) window.MYO.overlay.close(p); }
+  const p = document.getElementById('infoPanel');
+  if (overlay.isOpen(p)) overlay.close(p);
 }
-
 window.addEventListener('popstate', e => { if (e.state && e.state.step) { showView(e.state); window.scrollTo(0, 0); } });
 
-(function start(){
-  let saved = null;
-  try { saved = JSON.parse(sessionStorage.getItem(PROGRESS_KEY) || 'null'); } catch(e) {}
-  if (saved && saved.answers && Object.keys(saved.answers).length) {
-    Object.assign(answers, saved.answers);
-    showView(saved.view);
-  } else {
-    showView({ step:'section', section:0 });
-  }
-})();
+showView({ step:'section', section:0 });
 </script>
 </body>
 </html>
