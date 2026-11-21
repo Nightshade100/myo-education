@@ -40,7 +40,7 @@
 .chip[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
 .sign-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:16px}
 .sign-card{display:flex;flex-direction:column;justify-content:flex-start;align-items:stretch;width:100%;padding:0;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:8px;overflow:hidden;cursor:pointer;transition:border-color .15s ease,box-shadow .15s ease,transform .15s ease}
-.sign-card:hover{border-color:var(--accent-soft);box-shadow:0 8px 20px -12px rgba(31,42,36,.3);transform:translateY(-1px)}
+.sign-card:hover{border-color:var(--accent-soft);box-shadow:0 8px 20px -12px rgba(46,50,48,.3);transform:translateY(-1px)}
 .sign-card .illus{aspect-ratio:4/3}
 .sign-card .meta{display:block;padding:12px 14px 14px}
 .sign-card .cat{display:block;font-size:13px;color:var(--faint);margin-bottom:3px}
@@ -86,32 +86,6 @@
 .compare-card.good svg{color:var(--accent)}
 .compare-card.bad svg{color:#8A4B3A}
 
-/* ---------- journey ---------- */
-.journey .container{padding-top:80px;padding-bottom:88px}
-.journey-head{max-width:640px;margin-bottom:28px}
-.journey-head p{margin:-12px 0 0;font-size:16px;line-height:1.6;color:var(--body)}
-.journey-body{display:flex;flex-wrap:wrap;gap:0;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--surface)}
-.journey-list{flex:1 1 280px;max-width:340px;margin:0;padding:0;list-style:none;border-right:1px solid var(--line);background:var(--bg)}
-.journey-item{display:flex;width:100%;align-items:center;justify-content:space-between;gap:10px;padding:14px 18px;border:0;border-bottom:1px solid var(--line-soft);background:transparent;text-align:left;cursor:pointer;transition:background-color .15s ease}
-.journey-item:hover{background:var(--hover)}
-.journey-item[aria-selected="true"]{background:var(--surface);box-shadow:inset 3px 0 0 var(--accent)}
-.journey-item .lbl{display:block;font-size:12px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--accent)}
-.journey-item .ttl{display:block;font-size:16px;font-weight:600;color:var(--ink)}
-.journey-item .sb{display:block;font-size:14px;color:var(--muted)}
-.journey-item svg{flex:none;color:var(--faint)}
-.journey-panel{flex:999 1 420px;min-width:0;padding:32px clamp(20px,4vw,44px);display:flex;flex-direction:column;animation:fadeIn .2s ease}
-@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
-.journey-badge{align-self:flex-start;font-size:12px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
-.journey-panel h3{margin:0 0 10px;font-family:var(--serif);font-weight:500;font-size:clamp(26px,3vw,32px);line-height:1.15}
-.journey-quote{margin:0 0 14px;font-family:var(--serif);font-style:italic;font-size:18px;color:var(--body)}
-.journey-desc{margin:0 0 22px;font-size:16px;line-height:1.65;color:var(--body);max-width:620px}
-.journey-focus{margin:0 0 10px;font-size:14px;font-weight:600}
-.tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
-.tag{border:1px solid var(--control);border-radius:999px;padding:6px 14px;font-size:14px;color:var(--body);background:var(--surface)}
-.journey-cta{align-self:flex-start;margin-top:auto}
-.journey-cta.disabled{background:var(--line-soft);color:var(--muted);border-color:var(--line-soft);cursor:default;pointer-events:none}
-@media (max-width:700px){ .journey-list{max-width:none;border-right:0;border-bottom:1px solid var(--line)} }
-
 /* ---------- treatments dialog ---------- */
 .treatment-list{list-style:none;margin:0;padding:0}
 .treatment-list li{display:flex;align-items:center;gap:14px;padding:12px 0;border-top:1px solid var(--line-soft);font-weight:600;font-size:16px}
@@ -124,10 +98,11 @@
 
 <header class="site-header">
   <div class="container">
-    <a class="brand" href="/">MYO Education</a>
+    <a class="brand" href="/">MYO Education<span class="brand-sub">by Inspire Doctors</span></a>
     <nav class="site-nav" aria-label="Main">
       <a class="nav-link" href="/" aria-current="page">Home</a>
       <a class="nav-link" href="https://www.airwayfocuseddentist.com.au/" target="_blank" rel="noopener">Myo-Online</a>
+      <a class="nav-link" href="https://inspiredoctors.com.au/" target="_blank" rel="noopener">Inspire Doctors</a>
       <a class="nav-cta" href="/screening">Symptom checker</a>
     </nav>
   </div>
@@ -203,15 +178,14 @@
     </div>
   </section>
 
-  <section class="journey" aria-labelledby="journey-title">
+  <section class="inspire-about" aria-labelledby="about-title">
     <div class="container">
-      <div class="journey-head">
-        <h2 class="section-title" id="journey-title">A dental health journey that lasts a lifetime</h2>
-        <p>From prevention through to long-term care, here's how we support you and your family at every stage — including diagnosis, treatment, rehabilitation and education along the way.</p>
-      </div>
-      <div class="journey-body">
-        <div class="journey-list" id="journeyList" role="tablist" aria-label="Life stages"></div>
-        <div class="journey-panel" id="journeyPanel" role="tabpanel"></div>
+      <img class="about-logo" src="images/inspire-doctors-logo-light.png" alt="Inspire Doctors" width="200" height="96">
+      <div class="about-text">
+        <p class="kicker">About us</p>
+        <h2 id="about-title">MYO Education is a free resource from Inspire Doctors</h2>
+        <p class="about-desc">Inspire Doctors is an integrative sleep medicine and airway dentistry practice in Bentleigh East, Melbourne. We treat sleep apnoea, snoring, insomnia, TMJ pain, teeth grinding and mouth breathing in adults and children.</p>
+        <a class="btn btn-light" href="https://inspiredoctors.com.au/" target="_blank" rel="noopener">Visit Inspire Doctors</a>
       </div>
     </div>
   </section>
@@ -219,8 +193,8 @@
 
 <footer class="site-footer">
   <div class="container">
-    <span class="footer-brand">MYO Education</span>
-    <span>&copy; 2026 MYO Education. For general education only — not a substitute for a professional diagnosis. <a href="/privacy">Privacy policy</a></span>
+    <span class="footer-brand-row"><a class="footer-logo" href="https://inspiredoctors.com.au/" target="_blank" rel="noopener"><img src="images/inspire-doctors-logo.png" alt="Inspire Doctors" width="91" height="44"></a><span class="footer-divider" aria-hidden="true"></span><span class="footer-brand">MYO Education</span></span>
+    <span>&copy; 2026 <a href="https://inspiredoctors.com.au/" target="_blank" rel="noopener">Inspire Doctors</a>. All rights reserved. For general education only — not a substitute for a professional diagnosis. <a href="/privacy">Privacy policy</a></span>
   </div>
 </footer>
 
@@ -370,66 +344,6 @@
   document.getElementById('treatmentList').innerHTML = T.map(t =>
     `<li><span class="treatment-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">${t.icon}</svg></span>${t.name}</li>`).join('');
 
-  /* ---------- journey ---------- */
-  const journeyStages = [
-    { stageLabel:"Stage 1", title:"Pregnancy & Early Life", sub:"Future Expansion", badge:"The Orthodontic Specialist",
-      quote:"Every stage of growth builds on the one before it — this is where it starts.",
-      desc:"Healthy facial and jaw development starts earlier than most people realise, shaped by feeding, tongue posture, and everyday habits from the very beginning.",
-      tags:["Craniofacial development","Tongue function","Early breathing","Sleep"],
-      cta:{label:"Future Expansion", href:null} },
-    { stageLabel:"Stage 2", title:"Childhood", sub:"Ages 4-10", badge:"The Orthodontic Specialist",
-      quote:"Catching things early usually means fewer problems later on.",
-      desc:"We focus on guiding facial growth and picking up airway issues early, before they can turn into something that follows a child for life.",
-      tags:["Facial growth","Airway","Mouth breathing","Crossbites","Early Interceptive Orthodontics"],
-      cta:{label:"See Childhood Care →", href:"#childhood"} },
-    { stageLabel:"Stage 3", title:"Teenage Years", sub:"Ages 11-17", badge:"The Orthodontic Specialist",
-      quote:"Getting the growth right now means it holds for years to come.",
-      desc:"This is where we finish guiding growth and help lock in results that hold up long after treatment ends.",
-      tags:["Orthodontics","Clear aligners","Fixed braces","Facial balance","Retention"],
-      cta:{label:"See Teenage Years Care →", href:"#teenage-years"} },
-    { stageLabel:"Stage 4", title:"Young Adults", sub:"Ages 18-30", badge:"The Orthodontic Specialist & Asura",
-      quote:"The best time to deal with a problem is before it becomes one.",
-      desc:"Care shifts here from keeping teeth in place to restoring function and staying ahead of bigger issues.",
-      tags:["Adult orthodontics","Adult skeletal expansion","TMJ","Occlusion","Preventive restorative"],
-      cta:{label:"See Young Adults Care →", href:"#young-adults"} },
-    { stageLabel:"Stage 5", title:"Adults", sub:"Ages 30-60", badge:"Asura Longevity Dentistry",
-      quote:"Wherever we can, we work with what's already there rather than replacing it.",
-      desc:"We focus on restoring health, function and appearance, while keeping as much of the natural tooth and tissue as possible.",
-      tags:["Tooth wear","Restorative Dentistry","Implant Dentistry","Dental Sleep Medicine","Full Mouth Rehabilitation"],
-      cta:{label:"See Adult Care →", href:"#adults"} },
-    { stageLabel:"Stage 6", title:"Healthy Ageing", sub:"Ages 60+", badge:"Asura Longevity Dentistry",
-      quote:"Good oral health doesn't stop mattering as you get older — if anything, it matters more.",
-      desc:"As we age, care is about maintaining function and overall health, so quality of life doesn't have to decline along with it.",
-      tags:["Healthy ageing","Long-term maintenance","Oral-systemic health","Function","Nutrition"],
-      cta:{label:"See Healthy Ageing Care →", href:"#healthy-ageing"} }
-  ];
-  const journeyList = document.getElementById('journeyList');
-  const journeyPanel = document.getElementById('journeyPanel');
-  function renderJourney(active){
-    journeyList.innerHTML = journeyStages.map((s, i) => `
-      <button type="button" class="journey-item" role="tab" aria-selected="${i === active}" data-i="${i}">
-        <span><span class="lbl">${s.stageLabel}</span><span class="ttl">${s.title}</span><span class="sb">${s.sub}</span></span>${chev}
-      </button>`).join('');
-    const s = journeyStages[active];
-    const cta = s.cta.href
-      ? `<a class="btn btn-primary journey-cta" href="${s.cta.href}">${s.cta.label}</a>`
-      : `<span class="btn journey-cta disabled">${s.cta.label}</span>`;
-    journeyPanel.innerHTML = `
-      <span class="journey-badge">${s.badge}</span>
-      <h3>${s.title}</h3>
-      <p class="journey-quote">“${s.quote}”</p>
-      <p class="journey-desc">${s.desc}</p>
-      <p class="journey-focus">What we focus on here:</p>
-      <div class="tags">${s.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
-      ${cta}`;
-    journeyPanel.style.animation = 'none'; void journeyPanel.offsetWidth; journeyPanel.style.animation = '';
-  }
-  journeyList.addEventListener('click', e => {
-    const b = e.target.closest('.journey-item'); if (!b) return;
-    renderJourney(+b.dataset.i);
-    journeyList.querySelector(`[data-i="${b.dataset.i}"]`).focus();
-  });
-  renderJourney(0);
 })();
 </script>
 </body>

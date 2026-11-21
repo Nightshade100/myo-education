@@ -3,20 +3,20 @@
    Used by index.html, screening.html and screener.html
    ========================================================= */
 :root{
-  --bg:#FAF8F4;
+  --bg:#F9F5EE;
   --surface:#FFFFFF;
-  --ink:#1F2A24;
-  --body:#3A463F;
-  --muted:#56625B;
-  --faint:#646E68;
-  --line:#E5E0D6;
-  --line-soft:#EFEBE3;
-  --control:#D9D3C7;
-  --accent:#3D6B57;
-  --accent-dark:#2E5343;
-  --accent-tint:#E2ECE5;
-  --accent-soft:#9DBBAA;
-  --hover:#F1EEE7;
+  --ink:#2E3230;
+  --body:#3D4A3E;
+  --muted:#5E655F;
+  --faint:#6B726C;
+  --line:#E5DDCF;
+  --line-soft:#F0EAE0;
+  --control:#D6CDBD;
+  --accent:#4A6B4F;
+  --accent-dark:#2E4A33;
+  --accent-tint:#E4EBE2;
+  --accent-soft:#A8B5A2;
+  --hover:#F0EAE0;
   --error:#B42318;
   --serif:'Newsreader', Georgia, 'Times New Roman', serif;
   --sans:'Instrument Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
@@ -37,7 +37,7 @@ button{font:inherit;color:inherit}
 .visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
 /* ---------- header ---------- */
-.site-header{position:sticky;top:0;z-index:100;background:rgba(250,248,244,.94);backdrop-filter:saturate(1.2) blur(8px);-webkit-backdrop-filter:saturate(1.2) blur(8px);border-bottom:1px solid var(--line)}
+.site-header{position:sticky;top:0;z-index:100;background:rgba(249,245,238,.94);backdrop-filter:saturate(1.2) blur(8px);-webkit-backdrop-filter:saturate(1.2) blur(8px);border-bottom:1px solid var(--line)}
 .site-header .container{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 28px;padding-top:14px;padding-bottom:14px}
 .brand{font-family:var(--serif);font-weight:500;font-size:24px;letter-spacing:-.01em;color:var(--ink);text-decoration:none}
 .brand:hover{color:var(--ink)}
@@ -59,7 +59,7 @@ button{font:inherit;color:inherit}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 22px;border-radius:6px;font-weight:600;font-size:16px;text-decoration:none;border:1px solid transparent;cursor:pointer;transition:background-color .15s ease,border-color .15s ease,color .15s ease;font-family:inherit}
 .btn-primary{background:var(--accent);color:#fff}
 .btn-primary:hover{background:var(--accent-dark);color:#fff}
-.btn-primary:disabled{background:#B9C9BF;cursor:not-allowed}
+.btn-primary:disabled{background:#A8B5A2;cursor:not-allowed}
 .btn-secondary{background:var(--surface);color:var(--ink);border-color:var(--control)}
 .btn-secondary:hover{border-color:var(--ink);color:var(--ink)}
 .btn-block{display:flex;width:100%}
@@ -81,11 +81,11 @@ button{font:inherit;color:inherit}
 
 /* ---------- overlays: backdrop, centred window, side panel ---------- */
 .backdrop,.scrim{position:fixed;inset:0;opacity:0;visibility:hidden;transition:opacity .2s ease,visibility 0s linear .2s}
-.backdrop{z-index:200;background:rgba(31,42,36,.32);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
-.scrim{z-index:220;background:rgba(31,42,36,.14);backdrop-filter:blur(2.5px);-webkit-backdrop-filter:blur(2.5px)}
+.backdrop{z-index:200;background:rgba(46,50,48,.32);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+.scrim{z-index:220;background:rgba(46,50,48,.14);backdrop-filter:blur(2.5px);-webkit-backdrop-filter:blur(2.5px)}
 .backdrop.is-open,.scrim.is-open{opacity:1;visibility:visible;transition:opacity .2s ease}
 
-.window{position:fixed;z-index:210;top:40px;bottom:40px;left:24px;right:24px;max-width:1080px;margin:0 auto;background:var(--bg);border-radius:10px;box-shadow:0 24px 64px rgba(31,42,36,.28);display:flex;flex-direction:column;overflow:hidden;opacity:0;visibility:hidden;transform:translateY(8px) scale(.985);transition:opacity .2s ease,transform .22s var(--ease),visibility 0s linear .22s}
+.window{position:fixed;z-index:210;top:40px;bottom:40px;left:24px;right:24px;max-width:1080px;margin:0 auto;background:var(--bg);border-radius:10px;box-shadow:0 24px 64px rgba(46,50,48,.28);display:flex;flex-direction:column;overflow:hidden;opacity:0;visibility:hidden;transform:translateY(8px) scale(.985);transition:opacity .2s ease,transform .22s var(--ease),visibility 0s linear .22s}
 .window.is-open{opacity:1;visibility:visible;transform:none;transition:opacity .2s ease,transform .22s var(--ease)}
 .window-head{padding:24px 28px 18px;border-bottom:1px solid var(--line)}
 .window-title-row{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:16px}
@@ -103,7 +103,7 @@ button{font:inherit;color:inherit}
 .window.compact .window-head{border-bottom:0;padding-bottom:4px}
 @media (max-width:640px){ .window.compact{left:16px;right:16px;border-radius:12px} }
 
-.panel{position:fixed;z-index:230;top:0;right:0;bottom:0;width:480px;max-width:100%;background:var(--surface);box-shadow:-12px 0 40px rgba(31,42,36,.16);overflow:auto;overscroll-behavior:contain;visibility:hidden;transform:translateX(105%);transition:transform .26s var(--ease),visibility 0s linear .26s}
+.panel{position:fixed;z-index:230;top:0;right:0;bottom:0;width:480px;max-width:100%;background:var(--surface);box-shadow:-12px 0 40px rgba(46,50,48,.16);overflow:auto;overscroll-behavior:contain;visibility:hidden;transform:translateX(105%);transition:transform .26s var(--ease),visibility 0s linear .26s}
 .panel.is-open{visibility:visible;transform:none;transition:transform .26s var(--ease)}
 .panel-inner{padding:16px 32px 36px}
 .panel-top{display:flex;justify-content:space-between;align-items:center;margin:0 -12px 8px 0}
@@ -118,7 +118,7 @@ button{font:inherit;color:inherit}
 .panel .handle{display:none}
 /* phones: the side panel becomes a bottom sheet */
 @media (max-width:640px){
-  .panel{top:auto;left:0;width:auto;max-height:90vh;max-height:90dvh;border-radius:14px 14px 0 0;box-shadow:0 -8px 32px rgba(31,42,36,.16);transform:translateY(105%)}
+  .panel{top:auto;left:0;width:auto;max-height:90vh;max-height:90dvh;border-radius:14px 14px 0 0;box-shadow:0 -8px 32px rgba(46,50,48,.16);transform:translateY(105%)}
   .panel-inner{padding:8px 20px 28px}
   .panel .handle{display:block;width:40px;height:4px;border-radius:2px;background:var(--control);margin:2px auto 6px}
   .panel h2{font-size:26px}
@@ -134,3 +134,21 @@ button{font:inherit;color:inherit}
 .site-footer{border-top:1px solid var(--line)}
 .site-footer .container{padding-top:28px;padding-bottom:28px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;font-size:13px;color:var(--faint)}
 .site-footer .footer-brand{font-family:var(--serif);font-size:16px;color:var(--ink)}
+
+/* ---------- Inspire Doctors branding ---------- */
+.brand{display:flex;flex-direction:column;line-height:1.1}
+.brand-sub{font-family:var(--sans);font-size:13px;font-weight:500;letter-spacing:.02em;color:var(--muted);margin-top:4px}
+.footer-brand-row{display:flex;align-items:center;gap:16px}
+.footer-logo{display:inline-flex}
+.footer-logo img{display:block;height:44px;width:auto}
+.footer-divider{width:1px;height:32px;background:var(--control)}
+.inspire-about{background:var(--ink);color:var(--bg);margin-top:80px}
+.inspire-about .container{padding-top:64px;padding-bottom:64px;display:flex;flex-wrap:wrap;align-items:center;gap:32px 64px}
+.inspire-about .about-logo{display:block;height:96px;width:auto;flex:none}
+.inspire-about .about-text{flex:999 1 420px;min-width:0}
+.inspire-about .kicker{color:var(--accent-soft)}
+.inspire-about h2{margin:0 0 14px;font-family:var(--serif);font-weight:500;font-size:clamp(28px,3.5vw,36px);line-height:1.15;color:var(--bg)}
+.inspire-about p.about-desc{margin:0 0 24px;font-size:16px;line-height:1.65;color:#E4E0D8;max-width:620px}
+.inspire-about .btn-light{background:var(--bg);color:var(--ink)}
+.inspire-about .btn-light:hover{background:#FFFFFF;color:var(--ink)}
+@media (max-width:640px){ .inspire-about .about-logo{height:72px} .inspire-about .container{padding-top:48px;padding-bottom:48px} }
