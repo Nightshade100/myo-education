@@ -1,4 +1,4 @@
-/* Clicking any email link copies the address to the clipboard and shows a short "copied" message. */
+/* Clicking any email link opens the mail app as usual, and also copies the address to the clipboard with a short "copied" message. */
 (function () {
   var toast;
   function showToast(text) {
@@ -28,9 +28,9 @@
     var a = e.target.closest && e.target.closest('a[href^="mailto:"]');
     if (!a) return;
     var email = decodeURIComponent(a.getAttribute('href').slice(7).split('?')[0]);
-    e.preventDefault();
+    // No preventDefault: the mailto link still opens the mail app.
     var done = function () { showToast('Email copied: ' + email); };
-    var fail = function () { if (fallbackCopy(email)) done(); else window.location.href = a.href; };
+    var fail = function () { if (fallbackCopy(email)) done(); };
     if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(email).then(done, fail);
     else fail();
   });
