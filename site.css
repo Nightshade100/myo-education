@@ -155,3 +155,6 @@ button{font:inherit;color:inherit}
 .inspire-about .btn-light{background:var(--bg);color:var(--ink)}
 .inspire-about .btn-light:hover{background:#FFFFFF;color:var(--ink)}
 @media (max-width:640px){ .inspire-about .about-logo{height:72px} .inspire-about .container{padding-top:48px;padding-bottom:48px} }
+.footer-info{display:flex;flex-direction:column;align-items:flex-start;gap:6px;text-align:left}
+.footer-contact a{color:var(--muted);text-decoration:none}
+.footer-contact a:hover{color:var(--accent);text-decoration:underline}
