@@ -75,6 +75,11 @@
 .next-buttons .btn{flex:1 1 auto}
 .restart-row{text-align:center;margin-top:20px}
 .restart-link{display:inline-flex;align-items:center;min-height:44px;font-size:15px;font-weight:600;color:var(--accent);text-decoration:underline;text-underline-offset:3px}
+.restart-confirm{display:inline-flex;flex-direction:column;align-items:center;gap:12px;padding:18px 22px;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+.restart-confirm[hidden],.restart-link[hidden]{display:none}
+.restart-confirm p{margin:0;font-size:15px;font-weight:600;color:var(--ink)}
+.restart-confirm .actions{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
+.restart-confirm .btn{min-height:44px;padding:0 18px;font-size:15px}
 .section-heading{margin:0 0 12px;font-family:var(--serif);font-weight:500;font-size:24px}
 
 /* swapping steps */
@@ -543,7 +548,14 @@ function renderResults(){
     </section>
 
     <div class="restart-row no-print">
-      <a class="restart-link" id="restartLink" href="#" role="button">Start over</a>
+      <a class="restart-link" id="restartLink" href="#" role="button" aria-expanded="false" aria-controls="restartConfirm">Start over</a>
+      <div class="restart-confirm" id="restartConfirm" role="group" aria-labelledby="restartQ" hidden>
+        <p id="restartQ">Start over? Your answers will be cleared.</p>
+        <div class="actions">
+          <button type="button" class="btn btn-primary" id="restartYes">Yes, start over</button>
+          <button type="button" class="btn btn-secondary" id="restartNo">Cancel</button>
+        </div>
+      </div>
     </div>
   `;
 
@@ -567,8 +579,20 @@ function renderResults(){
       .finally(() => { dlBtn.disabled = false; });
   });
 
-  document.getElementById('restartLink').addEventListener('click', (e) => {
+  const restartLink = document.getElementById('restartLink');
+  const restartBox = document.getElementById('restartConfirm');
+  restartLink.addEventListener('click', (e) => {
     e.preventDefault();
+    restartLink.hidden = true; restartLink.setAttribute('aria-expanded', 'true');
+    restartBox.hidden = false;
+    document.getElementById('restartNo').focus();
+  });
+  document.getElementById('restartNo').addEventListener('click', () => {
+    restartBox.hidden = true;
+    restartLink.hidden = false; restartLink.setAttribute('aria-expanded', 'false');
+    restartLink.focus();
+  });
+  document.getElementById('restartYes').addEventListener('click', () => {
     currentSection = 0;
     Object.keys(answers).forEach(k => delete answers[k]);
     pdfLabel.childName = ''; pdfLabel.childAge = '';
