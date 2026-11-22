@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Newsreader:opsz,wght@6..72,500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="site.css?v=20261122e">
+<link rel="stylesheet" href="site.css?v=20261122f">
 <style>
 /* ---------- hero ---------- */
 .hero .container{padding-top:96px;padding-bottom:88px}
@@ -88,7 +88,12 @@
 
 /* ---------- treatments dialog ---------- */
 .treatment-list{list-style:none;margin:0;padding:0}
-.treatment-list li{display:flex;align-items:center;gap:14px;padding:12px 0;border-top:1px solid var(--line-soft);font-weight:600;font-size:16px}
+.treatment-list li{border-top:1px solid var(--line-soft)}
+.treatment-list a{display:flex;align-items:center;gap:14px;padding:12px 8px;margin:0 -8px;border-radius:8px;font-weight:600;font-size:16px;color:var(--ink);text-decoration:none;transition:background .15s var(--ease)}
+.treatment-list a:hover{background:var(--hover);color:var(--accent-dark)}
+.treatment-list a:hover .treatment-name{text-decoration:underline;text-underline-offset:3px}
+.treatment-name{flex:1;min-width:0}
+.treatment-ext{flex:none;color:var(--muted)}
 .treatment-list li:first-child{border-top:0}
 .treatment-icon{width:40px;height:40px;border-radius:50%;background:var(--accent-tint);display:flex;align-items:center;justify-content:center;flex:none;color:var(--accent)}
 .window-foot{padding:0 28px 24px}
@@ -334,15 +339,18 @@
   });
 
   /* ---------- treatments ---------- */
+  const ID = 'https://inspiredoctors.com.au';
   const T = [
-    { name:"Clear aligners", icon:'<path d="M4 10c0-3 3.5-5 8-5s8 2 8 5-3.5 5-8 5-8-2-8-5z"/><path d="M4 10v3c0 3 3.5 5 8 5s8-2 8-5v-3"/>' },
-    { name:"Braces", icon:'<path d="M4 9h16M4 15h16"/><path d="M7 7.8v2.4M12 7.8v2.4M17 7.8v2.4M7 13.8v2.4M12 13.8v2.4M17 13.8v2.4"/>' },
-    { name:"Myofunctional therapy", icon:'<path d="M3 10c2-1.6 3.5-2.2 5-2.2 1.6 0 2.5 1 4 1s2.4-1 4-1c1.5 0 3 .6 5 2.2"/><path d="M3 10c2.4 1.6 5.4 2.4 9 2.4s6.6-.8 9-2.4"/><path d="M9 12.2v2.8a3 3 0 0 0 6 0v-2.8"/><path d="M12 12.4v2.6"/>' },
-    { name:"Expanders", icon:'<path d="M12 5v14M5 8l-2 4 2 4M19 8l2 4-2 4"/>' },
-    { name:"Oral appliances", icon:'<path d="M4 12c0-4 3.5-7 8-7s8 3 8 7-3.5 7-8 7-8-3-8-7z"/><path d="M8 12h8"/>' },
+    { name:"Airway & Breathing Assessment", url: ID + '/conditions/mouth-breathing/', icon:'<path d="M3 8h10a3 3 0 1 0-3-3"/><path d="M3 12h15a3 3 0 1 1-3 3"/><path d="M3 16h7"/>' },
+    { name:"Jaw & Facial Growth Assessment", url: ID + '/conditions/crooked-crowded-teeth/', icon:'<path d="M5.5 5C4.5 6.8 4 8.7 4 10.8 4 16 7.6 20 12 20s8-4 8-9.2c0-2.1-.5-4-1.5-5.8"/><path d="M12 15V8M9.5 10.5 12 8l2.5 2.5"/>' },
+    { name:"Myofunctional Therapy", url: ID + '/our-services/myofunctional-therapy/', icon:'<path d="M3 10c2-1.6 3.5-2.2 5-2.2 1.6 0 2.5 1 4 1s2.4-1 4-1c1.5 0 3 .6 5 2.2"/><path d="M3 10c2.4 1.6 5.4 2.4 9 2.4s6.6-.8 9-2.4"/><path d="M9 12.2v2.8a3 3 0 0 0 6 0v-2.8"/><path d="M12 12.4v2.6"/>' },
+    { name:"Expansion", url: ID + '/our-services/palate-expansion/', icon:'<path d="M12 5v14M5 8l-2 4 2 4M19 8l2 4-2 4"/>' },
+    { name:"Oral Appliances", url: ID + '/our-services/myobrace-myo-munchee/', icon:'<path d="M4 12c0-4 3.5-7 8-7s8 3 8 7-3.5 7-8 7-8-3-8-7z"/><path d="M8 12h8"/>' },
+    { name:"Home Sleep Studies", url: ID + '/our-services/snoring-treatment/', icon:'<path d="M3 11l9-7 9 7"/><path d="M5 9.5V20h14V9.5"/><path d="M14.5 15.2a3 3 0 1 1-3.2-3.9 2.4 2.4 0 0 0 3.2 3.9z"/>' },
   ];
+  const ext = '<svg class="treatment-ext" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17L17 7"/><path d="M8 7h9v9"/></svg>';
   document.getElementById('treatmentList').innerHTML = T.map(t =>
-    `<li><span class="treatment-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">${t.icon}</svg></span>${t.name}</li>`).join('');
+    `<li><a href="${t.url}" target="_blank" rel="noopener"><span class="treatment-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${t.icon}</svg></span><span class="treatment-name">${t.name.replace(/&/g,'&amp;')}</span>${ext}<span class="sr-only"> (opens Inspire Doctors website in a new tab)</span></a></li>`).join('');
 
 })();
 </script>
