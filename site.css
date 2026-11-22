@@ -132,7 +132,7 @@ button{font:inherit;color:inherit}
 
 /* ---------- footer ---------- */
 .site-footer{border-top:1px solid var(--line)}
-.site-footer .container{padding-top:28px;padding-bottom:28px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;font-size:13px;color:var(--faint)}
+.site-footer .container{padding-top:28px;padding-bottom:28px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px 32px;font-size:13px;color:var(--faint)}
 .site-footer .footer-brand{font-family:var(--serif);font-size:16px;color:var(--ink)}
 
 /* ---------- Inspire Doctors branding ---------- */
