@@ -456,18 +456,9 @@ function renderDetails(){
     <div class="section-head">
       <p class="section-meta">Almost done</p>
       <h1 tabindex="-1">Before you see your results</h1>
-      <p class="sub">Enter your details below to see your summary.</p>
+      <p class="sub">Enter your details, or continue with Google, to see your summary.</p>
     </div>
     <form class="card-block details-form" id="detailsForm" novalidate>
-      <p class="consent-note">None of your symptom checker answers are stored anywhere. Only your name and email are saved.</p>
-      <div class="field">
-        <label class="consent" for="dConsent"><input type="checkbox" id="dConsent" required aria-describedby="dConsentErr"><span>I agree to the <a href="/privacy" target="_blank" rel="noopener">privacy policy</a></span></label>
-        <span class="err" id="dConsentErr" aria-live="polite"></span>
-      </div>
-      <div class="gsi-area" id="gsiArea" hidden>
-        <div class="gsi-btn" id="gsiBtn"></div>
-        <p class="or-divider"><span>or enter your details</span></p>
-      </div>
       <div class="field">
         <label for="dName">Name <span class="req" aria-hidden="true">*</span></label>
         <input type="text" id="dName" name="name" maxlength="60" autocomplete="name" autocapitalize="words" required aria-describedby="dNameErr">
@@ -479,6 +470,15 @@ function renderDetails(){
         <span class="err" id="dEmailErr" aria-live="polite"></span>
       </div>
       <div class="hp-field" aria-hidden="true"><label for="dWebsite">Leave this empty</label><input type="text" id="dWebsite" tabindex="-1" autocomplete="off"></div>
+      <div class="gsi-area" id="gsiArea" hidden>
+        <p class="or-divider"><span>or</span></p>
+        <div class="gsi-btn" id="gsiBtn"></div>
+      </div>
+      <p class="consent-note">None of your symptom checker answers are stored anywhere. Only your name and email are saved.</p>
+      <div class="field">
+        <label class="consent" for="dConsent"><input type="checkbox" id="dConsent" required aria-describedby="dConsentErr"><span>I agree to the <a href="/privacy" target="_blank" rel="noopener">privacy policy</a></span></label>
+        <span class="err" id="dConsentErr" aria-live="polite"></span>
+      </div>
       <div class="nav-row">
         <button type="button" class="nav-back" id="backBtn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>Back</button>
         <button type="submit" class="nav-next" id="detailsSubmit">See my results</button>
