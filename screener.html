@@ -56,7 +56,7 @@
 .form-status{margin:0;font-size:14px;color:var(--muted)}
 .gsi-area{display:flex;flex-direction:column;gap:18px}
 .gsi-area[hidden]{display:none}
-.gsi-btn{min-height:44px;display:flex;justify-content:center}
+.gsi-btn{min-height:44px;display:flex;justify-content:center;width:100%;max-width:400px;margin:0 auto}
 .or-divider{display:flex;align-items:center;gap:14px;margin:0;font-size:14px;color:var(--muted)}
 .or-divider::before,.or-divider::after{content:"";flex:1;height:1px;background:var(--line)}
 /* results */
@@ -535,7 +535,7 @@ function renderDetails(){
       area.hidden = false;
       google.accounts.id.renderButton(holder, {
         type: 'standard', theme: 'outline', size: 'large', text: 'continue_with',
-        shape: 'rectangular', logo_alignment: 'center', width: Math.min(400, Math.max(240, holder.clientWidth))
+        shape: 'pill', logo_alignment: 'left', width: Math.min(400, Math.max(240, holder.clientWidth))
       });
     }).catch(() => {});
   }
