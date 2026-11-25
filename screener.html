@@ -54,6 +54,11 @@
 .consent-note{margin:0;font-size:14px;line-height:1.6;color:var(--muted)}
 .hp-field{position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden}
 .form-status{margin:0;font-size:14px;color:var(--muted)}
+.gsi-area{display:flex;flex-direction:column;gap:18px}
+.gsi-area[hidden]{display:none}
+.gsi-btn{min-height:44px;display:flex;justify-content:center}
+.or-divider{display:flex;align-items:center;gap:14px;margin:0;font-size:14px;color:var(--muted)}
+.or-divider::before,.or-divider::after{content:"";flex:1;height:1px;background:var(--line)}
 /* results */
 .results-head h1{margin:0 0 10px;font-family:var(--serif);font-weight:500;font-size:clamp(30px,4.5vw,38px);line-height:1.12;letter-spacing:-.01em}
 .results-head .summary-sub{margin:0 0 20px;font-size:16px;color:var(--body)}
@@ -414,6 +419,7 @@ const pdfLabel = { childName: '', childAge: '' };
    Only the name and email are sent (to the clinic's Google Sheet).
    The symptom checker answers are never sent or stored. */
 const SIGNUP_URL = 'https://script.google.com/macros/s/AKfycbwRJWY7AaHtgy3s_ds7IdLPGK5j3SC9sRniZMJG1mbN76LEaA4F30ndvfU4Jkb_tOeL/exec';
+const GOOGLE_CLIENT_ID = '802448381920-d27460qbpp2sd34ajjane5ahvlanfie3.apps.googleusercontent.com';
 let detailsDone = false;
 const NAME_RE = /^[\p{L}][\p{L}\p{M}' .-]{0,58}[\p{L}.]?$/u;
 const EMAIL_RE = /^[A-Za-z0-9._%+'-]+@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*\.[A-Za-z]{2,}$/;
@@ -427,11 +433,22 @@ function emailError(v){
   if (!EMAIL_RE.test(v)) return 'Please enter a valid email address, like name@example.com.';
   return '';
 }
-function sendSignup(name, email){
-  const body = new URLSearchParams({ name, email, consent: 'yes', website: document.getElementById('dWebsite').value });
+function sendSignup(fields){
+  const body = new URLSearchParams(Object.assign({ consent: 'yes', website: document.getElementById('dWebsite').value }, fields));
   const send = fetch(SIGNUP_URL, { method: 'POST', mode: 'no-cors', body }).catch(() => {});
   const timeout = new Promise(r => setTimeout(r, 5000));
   return Promise.race([send, timeout]);
+}
+/* "Continue with Google": Google's script is only loaded on this screen. */
+let gsiLoading = null;
+function loadGoogleSignIn(){
+  if (!gsiLoading) gsiLoading = new Promise((resolve, reject) => {
+    const sc = document.createElement('script');
+    sc.src = 'https://accounts.google.com/gsi/client';
+    sc.async = true; sc.onload = resolve; sc.onerror = reject;
+    document.head.appendChild(sc);
+  });
+  return gsiLoading;
 }
 function renderDetails(){
   app.innerHTML = `
@@ -442,6 +459,15 @@ function renderDetails(){
       <p class="sub">Enter your details below to see your summary.</p>
     </div>
     <form class="card-block details-form" id="detailsForm" novalidate>
+      <p class="consent-note">None of your symptom checker answers are stored anywhere. Only your name and email are saved.</p>
+      <div class="field">
+        <label class="consent" for="dConsent"><input type="checkbox" id="dConsent" required aria-describedby="dConsentErr"><span>I agree to the <a href="/privacy" target="_blank" rel="noopener">privacy policy</a></span></label>
+        <span class="err" id="dConsentErr" aria-live="polite"></span>
+      </div>
+      <div class="gsi-area" id="gsiArea" hidden>
+        <div class="gsi-btn" id="gsiBtn"></div>
+        <p class="or-divider"><span>or enter your details</span></p>
+      </div>
       <div class="field">
         <label for="dName">Name <span class="req" aria-hidden="true">*</span></label>
         <input type="text" id="dName" name="name" maxlength="60" autocomplete="name" autocapitalize="words" required aria-describedby="dNameErr">
@@ -453,11 +479,6 @@ function renderDetails(){
         <span class="err" id="dEmailErr" aria-live="polite"></span>
       </div>
       <div class="hp-field" aria-hidden="true"><label for="dWebsite">Leave this empty</label><input type="text" id="dWebsite" tabindex="-1" autocomplete="off"></div>
-      <p class="consent-note">None of your symptom checker answers are stored anywhere. Only your name and email are saved.</p>
-      <div class="field">
-        <label class="consent" for="dConsent"><input type="checkbox" id="dConsent" required aria-describedby="dConsentErr"><span>I agree to the <a href="/privacy" target="_blank" rel="noopener">privacy policy</a></span></label>
-        <span class="err" id="dConsentErr" aria-live="polite"></span>
-      </div>
       <div class="nav-row">
         <button type="button" class="nav-back" id="backBtn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>Back</button>
         <button type="submit" class="nav-next" id="detailsSubmit">See my results</button>
@@ -476,7 +497,48 @@ function renderDetails(){
   };
   nameIn.addEventListener('blur', () => { nameIn.value = formatName(nameIn.value); if (nameIn.value) show(nameIn, 'dNameErr', nameError(nameIn.value)); });
   emailIn.addEventListener('blur', () => { emailIn.value = emailIn.value.trim(); if (emailIn.value) show(emailIn, 'dEmailErr', emailError(emailIn.value)); });
-  consentIn.addEventListener('change', () => { if (consentIn.checked) show(consentIn, 'dConsentErr', ''); });
+  let pendingCredential = null;
+  const goToResults = () => {
+    detailsDone = true;
+    renderResults();
+    showStep();
+    window.scrollTo({top:0, behavior:'smooth'});
+  };
+  const finishWithGoogle = (credential) => {
+    pendingCredential = null;
+    document.getElementById('detailsSubmit').disabled = true;
+    document.getElementById('detailsStatus').textContent = 'Signed in with Google. Loading your results…';
+    sendSignup({ credential }).then(goToResults);
+  };
+  consentIn.addEventListener('change', () => {
+    if (!consentIn.checked) return;
+    show(consentIn, 'dConsentErr', '');
+    if (pendingCredential) finishWithGoogle(pendingCredential);
+  });
+  if (GOOGLE_CLIENT_ID && !GOOGLE_CLIENT_ID.startsWith('__')) {
+    loadGoogleSignIn().then(() => {
+      const area = document.getElementById('gsiArea');
+      const holder = document.getElementById('gsiBtn');
+      if (!area || !holder || !window.google || !google.accounts || !google.accounts.id) return;
+      google.accounts.id.initialize({
+        client_id: GOOGLE_CLIENT_ID,
+        auto_select: false,
+        cancel_on_tap_outside: true,
+        callback: (resp) => {
+          if (!resp || !resp.credential || !document.getElementById('gsiBtn')) return;
+          if (consentIn.checked) { finishWithGoogle(resp.credential); return; }
+          pendingCredential = resp.credential;
+          show(consentIn, 'dConsentErr', 'Please tick the box to agree to the privacy policy, and we\'ll continue.');
+          consentIn.focus();
+        }
+      });
+      area.hidden = false;
+      google.accounts.id.renderButton(holder, {
+        type: 'standard', theme: 'outline', size: 'large', text: 'continue_with',
+        shape: 'rectangular', logo_alignment: 'center', width: Math.min(400, Math.max(240, holder.clientWidth))
+      });
+    }).catch(() => {});
+  }
   document.getElementById('backBtn').addEventListener('click', () => { currentSection = sections.length - 1; renderSection(); showStep(); window.scrollTo({top:0, behavior:'smooth'}); });
 
   form.addEventListener('submit', (e) => {
@@ -490,12 +552,7 @@ function renderDetails(){
     const btn = document.getElementById('detailsSubmit');
     btn.disabled = true;
     document.getElementById('detailsStatus').textContent = 'Loading your results…';
-    sendSignup(nameIn.value, emailIn.value).then(() => {
-      detailsDone = true;
-      renderResults();
-      showStep();
-      window.scrollTo({top:0, behavior:'smooth'});
-    });
+    sendSignup({ name: nameIn.value, email: emailIn.value }).then(goToResults);
   });
 }
 
